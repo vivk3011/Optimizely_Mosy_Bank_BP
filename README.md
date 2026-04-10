@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Optimizely CMS Demo Site <!-- omit in toc -->
 
 > [!WARNING]
@@ -86,3 +87,7 @@ For Content Recommendations to work, the following steps are needed:
 * [Custom demo building](docs/demo-building.md)
 
 * [General solution description](docs/solution/index.md)
+=======
+# Optimizely-mosey-Bank-MultiSite-MultiLanguage
+repo for Optimizely SaaS COE having multi-site and multi-language configuration  
+>>>>>>> 038426345f13cfccbf3c3a24c03219af574cfd24
