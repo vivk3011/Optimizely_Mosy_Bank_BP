@@ -18,6 +18,58 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Multisite Setup (Optimizely SaaS CMS)
+
+This app supports host-based multisite routing with per-site locale and start-page behavior.
+
+### Core configuration
+
+Configure sites in [src/lib/site-config.ts](src/lib/site-config.ts):
+
+- `siteId`: must match the Optimizely SaaS CMS Application API ID
+- `hosts`: hostnames that map to this site
+- `locales`: supported locales for this host
+- `defaultLocale`: locale used when URL has no language prefix
+- `prefixDefaultLocale`: set to `true` when default locale must be in URL
+- `resolverBaseUrl`: base URL used for route resolution in Graph
+- `startPagePath`: site start page path (for example `/` or `/home`)
+
+### Environment-driven multisite
+
+You can fully define sites through `OPTIMIZELY_MULTISITE_CONFIG` as JSON.
+
+Example:
+
+```json
+[
+	{
+		"siteId": "moseybank",
+		"hosts": ["site-a.localtest.me"],
+		"locales": ["en", "en_GB", "fr", "pl", "sv"],
+		"defaultLocale": "en",
+		"prefixDefaultLocale": false,
+		"resolverBaseUrl": "http://site-a.localtest.me:3001",
+		"startPagePath": "/"
+	},
+	{
+		"siteId": "moseybanksite",
+		"hosts": ["site-b.localtest.me"],
+		"locales": ["en", "en_GB", "fr", "pl", "sv"],
+		"defaultLocale": "en",
+		"prefixDefaultLocale": true,
+		"resolverBaseUrl": "http://site-b.localtest.me:3001",
+		"startPagePath": "/home"
+	}
+]
+```
+
+### Request flow
+
+- Middleware resolves site by host and locale by path.
+- Middleware applies start-page redirects for root paths.
+- Site/locale/start-page context is passed through request headers and cookies.
+- Loaders use this context for Graph route/content resolution.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
