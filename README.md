@@ -1,30 +1,46 @@
-<<<<<<< HEAD
-# Optimizely CMS Demo Site <!-- omit in toc -->
-
-> [!WARNING]
-> There'll be an update of Optimizely SaaS CMS that is incompatible with all SDK versions prior to 5.1.6. If you don't upgrade, you will see empty pages (main website) and "Component not found" messages (preview).
-
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
-
-> [!TIP]
-> The folder [`content-updates`](./content-updates/) contains individually packaged updates to the CMS Content for this demo-site. You can use these to updated the content pack if you installed your demo content on or after ***February 1<sup>st</sup>, 2025***. If you've loaded the content into Optimizely CMS before that date, you need to perform a [content reset](#3-content-pack-upgrade).
-
-## Contents <!-- omit in toc -->
-- [1. Introduction](#1-introduction)
-- [2. Getting started](#2-getting-started)
-  - [2.1. Requirements](#21-requirements)
-  - [2.2. Deploying \& Configuring](#22-deploying--configuring)
-  - [2.3. Additional configuration options](#23-additional-configuration-options)
-- [3. Content pack upgrade](#3-content-pack-upgrade)
-- [4. Product specific instructions](#4-product-specific-instructions)
-  - [4.1. Content Recommendations](#41-content-recommendations)
-- [5. Further documentation](#5-further-documentation)
+# Optimizely-mosey-Bank-MultiSite-MultiLanguage
+repo for Optimizely SaaS COE having multi-site and multi-language configuration 
 
 
-## 1. Introduction
-This repository contains content and frontend that form the Optimizely SaaS CMS Demo Site. 
+## 1.Multisite Setup (Optimizely SaaS CMS)
+This app supports host-based multisite routing with per-site locale and start-page behavior.
 
-If you're looking to build a new site from scratch, please use the [Create Next App Template](https://github.com/remkoj/optimizely-saas-starter) to create an empty frontend using the same structure and tooling as this demo site.
+Core configuration
+Configure sites in src/lib/site-config.ts:
+
+siteId: must match the Optimizely SaaS CMS Application API ID
+hosts: hostnames that map to this site
+locales: supported locales for this host
+defaultLocale: locale used when URL has no language prefix
+prefixDefaultLocale: set to true when default locale must be in URL
+resolverBaseUrl: base URL used for route resolution in Graph
+startPagePath: site start page path (for example / or /home)
+Environment-driven multisite
+You can fully define sites through OPTIMIZELY_MULTISITE_CONFIG as JSON.
+
+Example:
+
+[
+	{
+		"siteId": "sitea",
+		"hosts": ["site-a.localtest.me"],
+		"locales": ["en", "en_GB", "fr", "pl", "sv"],
+		"defaultLocale": "en",
+		"prefixDefaultLocale": false,
+		"resolverBaseUrl": "http://site-a.localtest.me:3001",
+		"startPagePath": "/"
+	},
+	{
+		"siteId": "siteb",
+		"hosts": ["site-b.localtest.me"],
+		"locales": ["en", "en_GB", "fr", "pl", "sv"],
+		"defaultLocale": "en",
+		"prefixDefaultLocale": true,
+		"resolverBaseUrl": "http://site-b.localtest.me:3001",
+		"startPagePath": "/"
+	}
+]
+ 
 
 ## 2. Getting started
 ### 2.1. Requirements
@@ -85,9 +101,3 @@ For Content Recommendations to work, the following steps are needed:
 * [Enable on-page / in context editing](docs/editing.md)
 * [Supported environment variables](docs/env-vars.md)
 * [Custom demo building](docs/demo-building.md)
-
-* [General solution description](docs/solution/index.md)
-=======
-# Optimizely-mosey-Bank-MultiSite-MultiLanguage
-repo for Optimizely SaaS COE having multi-site and multi-language configuration  
->>>>>>> 038426345f13cfccbf3c3a24c03219af574cfd24
