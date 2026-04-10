@@ -15,6 +15,7 @@ import MegaMenuGroupBlockComponent from "./MegaMenuGroupBlock";
 import LayoutSettingsBlockComponent from "./LayoutSettingsBlock";
 import ImageElementComponent from "./ImageElement";
 import HeroBlockComponent from "./HeroBlock";
+import BannerBlockComponent from "./BannerBlock";
 import HeadingElementComponent from "./HeadingElement";
 import ContinueReadingComponentComponent from "./ContinueReadingComponent";
 import ContentRecsElementComponent from "./ContentRecsElement";
@@ -66,6 +67,14 @@ export const ComponentFactory : ComponentTypeDictionary = [
         type: "MenuNavigationBlock", 
         component: MenuNavigationBlockComponent 
     },
+    {
+        type: "MenuNavigationBlock/menu",
+        component: MenuNavigationBlockComponent
+    },
+    {
+        type: "MenuNavigationBlock/footer",
+        component: MenuNavigationBlockComponent
+    },
     { 
         type: "MegaMenuGroupBlock/mobile", 
         component: MegaMenuGroupBlockMobileComponent 
@@ -85,6 +94,14 @@ export const ComponentFactory : ComponentTypeDictionary = [
     { 
         type: "HeroBlock", 
         component: HeroBlockComponent 
+    },
+    {
+        type: "Banner",
+        component: BannerBlockComponent
+    },
+    {
+        type: "BannerBlock",
+        component: BannerBlockComponent
     },
     { 
         type: "HeadingElement", 
@@ -109,6 +126,10 @@ export const ComponentFactory : ComponentTypeDictionary = [
     { 
         type: "ButtonBlock", 
         component: ButtonBlockComponent 
+    },
+    {
+        type: "ButtonBlock/mobile",
+        component: ButtonBlockComponent
     },
     { 
         type: "ArticleListElement", 

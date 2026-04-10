@@ -1,58 +1,24 @@
 import "server-only";
-import { createClient, AuthMode } from "@remkoj/optimizely-graph-client";
+
+import { createClient } from "@remkoj/optimizely-cms-nextjs";
+
 import { createPage } from "@remkoj/optimizely-cms-nextjs/page";
-import { getContentByPath } from "@gql/functions";
 import { factory } from "@components/factory";
-import { draftMode } from "next/headers";
+import { getContentByPath } from "@/lib/loaders";
 
-// Create the page components and functions
-const {
-    generateMetadata,
-    generateStaticParams,
-    CmsPage: Page,
-} = createPage(factory, {
-    /**
-     * Inject the "getContentByPath" master query that will be used to load all
-     * content for the page in one request. When omitted, the default implementation
-     * will revert to many requests in order to load the content.
-     */
-    getContentByPath: getContentByPath,
+const { generateMetadata, generateStaticParams, CmsPage: Page } = createPage(factory, {
+  // Default locale: the [[...path]] route handles the site's default locale.
+  // Actual locale is injected per-request by middleware via x-opti-locale header.
+  paramsToLocale: () => "en",
+  getContentByPath,
 
-    /**
-     * The demo site is single language, so we're always defaulting to English.
-     * For a multi-lingual implementation, you may omit this parameters when you
-     * have both a [lang] URL segment and define the channel. Otherwise implement
-     * your own synchronous logic to get the initial locale based on the parameters.
-     * 
-     * @returns     The initial locale
-     */
-    //paramsToLocale: () => "en",
-
-    /**
-     * The factory to use to create the GraphQL Client to fetch data from Optimizely
-     * CMS.
-     * 
-     * @returns     The Optimizely Graph Client
-     */
-    client: (_, scope) => {
-        const client = createClient(undefined, undefined, {
-            nextJsFetchDirectives: true,
-            cache: true,
-            queryCache: true,
-        })
-        if (scope === 'request' && draftMode().isEnabled) {
-            client.updateAuthentication(AuthMode.HMAC)
-            client.enablePreview()
-        }
-        return client
-    }
+  client: () => createClient(),
 });
 
-// Configure the Next.JS route handling for the pages
-export const dynamic = "error"; // Throw an error when the [[...path]] route becomes dynamic, as this will seriously hurt site performance
-export const dynamicParams = true; // Allow new pages to be resolved without rebuilding the site
-export const revalidate = false; // Keep the cache untill manually revalidated using the Webhook
+// force-dynamic: locale and siteId come from request headers set by middleware
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+export const revalidate = false;
 
-// Export page & helper methods
 export { generateMetadata, generateStaticParams };
-export default Page
+export default Page;

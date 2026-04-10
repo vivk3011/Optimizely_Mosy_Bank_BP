@@ -85,6 +85,13 @@ export const ArticleListElementDataFragmentDoc = gql`
   topics
 }
     `;
+export const BannerDataFragmentDoc = gql`
+    fragment BannerData on Banner {
+  bannerTitle: Title
+  bannerDescription: Description
+  bannerButtonText: ButtonText
+}
+    `;
 export const ButtonBlockDataFragmentDoc = gql`
     fragment ButtonBlockData on ButtonBlock {
   children: ButtonText
@@ -141,33 +148,13 @@ export const HeadingElementDataFragmentDoc = gql`
   headingText
 }
     `;
-export const ButtonBlockPropertyDataFragmentDoc = gql`
-    fragment ButtonBlockPropertyData on ButtonBlockProperty {
-  children: ButtonText
-  url: ButtonUrl {
-    ...LinkData
-  }
-  className: ButtonClass
-  buttonType: ButtonType
-  buttonVariant: ButtonVariant
-}
-    `;
 export const HeroBlockDataFragmentDoc = gql`
     fragment HeroBlockData on HeroBlock {
-  heroImage: HeroImage {
-    ...ReferenceData
-  }
-  eyebrow: Eyebrow
-  heroHeading: Heading
-  heroSubheading: SubHeading
-  heroDescription: Description {
-    json
-    html
-  }
-  heroColor: HeroColor
-  heroButton: HeroButton {
-    ...ButtonBlockPropertyData
-  }
+  title
+  subtitle
+  showDecoration
+  decorationColorsPrimary
+  decorationColorsSecondary
 }
     `;
 export const ImageElementDataFragmentDoc = gql`
@@ -342,9 +329,6 @@ export const VideoElementDataFragmentDoc = gql`
   video {
     ...ReferenceData
   }
-  placeholder {
-    ...ReferenceData
-  }
 }
     `;
 export const BlankSectionDataFragmentDoc = gql`
@@ -363,6 +347,7 @@ export const ContinueReadingComponentDataFragmentDoc = gql`
     ...IContentData
     ...BlockData
     ...ArticleListElementData
+    ...BannerData
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
@@ -394,6 +379,7 @@ export const CarouselBlockDataFragmentDoc = gql`
     ...ImageMediaComponentData
     ...VideoMediaComponentData
     ...ArticleListElementData
+    ...BannerData
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
@@ -423,6 +409,7 @@ export const CompositionComponentNodeDataFragmentDoc = gql`
     ...BlockData
     ...ElementData
     ...ArticleListElementData
+    ...BannerData
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
@@ -510,6 +497,7 @@ export const BlogPostPageDataFragmentDoc = gql`
     ...ImageMediaComponentData
     ...VideoMediaComponentData
     ...ArticleListElementData
+    ...BannerData
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
@@ -554,6 +542,7 @@ export const LandingPageDataFragmentDoc = gql`
   TopContentArea {
     ...BlockData
     ...ArticleListElementData
+    ...BannerData
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
@@ -578,6 +567,7 @@ export const LandingPageDataFragmentDoc = gql`
   MainContentArea {
     ...BlockData
     ...ArticleListElementData
+    ...BannerData
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
@@ -676,6 +666,7 @@ ${LinkDataFragmentDoc}
 ${ContinueReadingComponentDataFragmentDoc}
 ${BlockDataFragmentDoc}
 ${ArticleListElementDataFragmentDoc}
+${BannerDataFragmentDoc}
 ${ButtonBlockDataFragmentDoc}
 ${CTAElementDataFragmentDoc}
 ${CarouselBlockDataFragmentDoc}
@@ -685,9 +676,8 @@ ${VideoMediaComponentDataFragmentDoc}
 ${ContentRecsElementDataFragmentDoc}
 ${HeadingElementDataFragmentDoc}
 ${HeroBlockDataFragmentDoc}
-${ReferenceDataFragmentDoc}
-${ButtonBlockPropertyDataFragmentDoc}
 ${ImageElementDataFragmentDoc}
+${ReferenceDataFragmentDoc}
 ${LayoutSettingsBlockDataFragmentDoc}
 ${LinkItemDataFragmentDoc}
 ${MegaMenuGroupBlockDataFragmentDoc}
@@ -1086,6 +1076,7 @@ export const getContentByIdDocument = gql`
       ...BlockData
       ...PageData
       ...ArticleListElementData
+      ...BannerData
       ...ButtonBlockData
       ...CTAElementData
       ...CarouselBlockData
@@ -1119,6 +1110,7 @@ ${LinkDataFragmentDoc}
 ${BlockDataFragmentDoc}
 ${PageDataFragmentDoc}
 ${ArticleListElementDataFragmentDoc}
+${BannerDataFragmentDoc}
 ${ButtonBlockDataFragmentDoc}
 ${CTAElementDataFragmentDoc}
 ${CarouselBlockDataFragmentDoc}
@@ -1129,9 +1121,8 @@ ${ContentRecsElementDataFragmentDoc}
 ${ContinueReadingComponentDataFragmentDoc}
 ${HeadingElementDataFragmentDoc}
 ${HeroBlockDataFragmentDoc}
-${ReferenceDataFragmentDoc}
-${ButtonBlockPropertyDataFragmentDoc}
 ${ImageElementDataFragmentDoc}
+${ReferenceDataFragmentDoc}
 ${LayoutSettingsBlockDataFragmentDoc}
 ${LinkItemDataFragmentDoc}
 ${MegaMenuGroupBlockDataFragmentDoc}
@@ -1187,6 +1178,7 @@ ${BlockDataFragmentDoc}
 ${ElementDataFragmentDoc}
 ${IElementDataFragmentDoc}
 ${ArticleListElementDataFragmentDoc}
+${BannerDataFragmentDoc}
 ${ButtonBlockDataFragmentDoc}
 ${CTAElementDataFragmentDoc}
 ${CarouselBlockDataFragmentDoc}
@@ -1197,7 +1189,6 @@ ${ContentRecsElementDataFragmentDoc}
 ${ContinueReadingComponentDataFragmentDoc}
 ${HeadingElementDataFragmentDoc}
 ${HeroBlockDataFragmentDoc}
-${ButtonBlockPropertyDataFragmentDoc}
 ${ImageElementDataFragmentDoc}
 ${LayoutSettingsBlockDataFragmentDoc}
 ${LinkItemDataFragmentDoc}

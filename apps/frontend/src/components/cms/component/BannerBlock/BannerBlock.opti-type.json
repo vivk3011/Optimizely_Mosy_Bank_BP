@@ -1,0 +1,48 @@
+{
+  "key": "BannerBlock",
+  "displayName": "Banner",
+  "description": "A banner with title, description and button text",
+  "baseType": "block",
+  "sortOrder": 200,
+  "mayContainTypes": [],
+  "mediaFileExtensions": [],
+  "compositionBehaviors": [],
+  "properties": {
+    "Title": {
+      "type": "string",
+      "format": "shortString",
+      "displayName": "Title",
+      "description": "Banner title",
+      "localized": true,
+      "required": true,
+      "group": "Content",
+      "sortOrder": 10,
+      "indexingType": "searchable",
+      "editorSettings": {}
+    },
+    "Description": {
+      "type": "string",
+      "format": "longString",
+      "displayName": "Description",
+      "description": "Banner description",
+      "localized": true,
+      "required": false,
+      "group": "Content",
+      "sortOrder": 20,
+      "indexingType": "searchable",
+      "editorSettings": {}
+    },
+    "ButtonText": {
+      "type": "string",
+      "format": "shortString",
+      "displayName": "Button text",
+      "description": "CTA button label",
+      "localized": true,
+      "required": false,
+      "group": "Content",
+      "sortOrder": 30,
+      "indexingType": "searchable",
+      "editorSettings": {}
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { cache } from 'react';
 import { getSdk } from "@/gql/client";
 import { createClient, type IOptiGraphClient } from "@remkoj/optimizely-graph-client";
 import { type GenericContext } from "@remkoj/optimizely-cms-react/rsc";
+import { cookies } from "next/headers";
 
 export type LanguageSwitcherProps = {
     ctx?: GenericContext
@@ -13,7 +14,10 @@ export type LanguageSwitcherProps = {
 export async function LanguageSwitcher ({ ctx, ...divProps }: LanguageSwitcherProps)
 {
     const { locale: currentLocale = "en", client } = ctx ?? { locale: 'en' }
-    const locales = await getLocales(false, client)
+    const cookieLocales = cookies().get("x_site_locales")?.value
+    const locales = cookieLocales
+        ? cookieLocales.split(",").map((x) => x.trim()).filter(Boolean)
+        : await getLocales(false, client)
 
     // If there're less the two locales, don't show the picker
     if (locales.length < 2)

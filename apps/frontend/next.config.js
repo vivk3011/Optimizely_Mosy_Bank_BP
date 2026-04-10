@@ -32,10 +32,16 @@ const nextConfig = {
         serverActions: {
           allowedOrigins: [
             '*.webproofing.cmp.optimizely.com', // Optimizely CMP Preview
-            'www.optimizelyedit.com/' // Optimizely Web Experimentation & Personalization Editor
+            'www.optimizelyedit.com/', // Optimizely Web Experimentation & Personalization Editor
+            'app-ltim01saascv09nt001.cms.optimizely.com', // CMS Live Preview origin
           ],
         }
-    }
+    },
+    // Allow dev-server cross-origin requests from multisite hostnames
+    allowedDevOrigins: [
+        'site-a.localtest.me',
+        'site-b.localtest.me',
+    ],
 }
 
 // Add the Optimizely DXP Image Loader

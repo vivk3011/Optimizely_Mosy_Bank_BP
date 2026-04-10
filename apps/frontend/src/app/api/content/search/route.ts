@@ -20,10 +20,13 @@ async function handler(req: NextRequest) : Promise<NextResponse<SiteSearchRespon
     if (!searchTerm)
         return NextResponse.json<SiteSearchError>({ error: { type: "Bad Request", message: "The term parameter is required"} }, { status: 400 })
 
+    const requestedLocale = (req.nextUrl.searchParams.get("locale") || req.headers.get("x-opti-locale") || "en").toLowerCase();
+    const withinLocale = (Locales as any)[requestedLocale] ?? Locales.en;
+
     const searchResults = await contentSearch(searchTerm, {
         limit,
         start,
-        locale: Locales.en,
+        locale: withinLocale,
         personalize: true,
         filters: facets
     })

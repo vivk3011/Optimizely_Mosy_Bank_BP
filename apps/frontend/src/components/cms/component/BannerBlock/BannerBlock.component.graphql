@@ -1,0 +1,5 @@
+fragment BannerData on Banner {
+  bannerTitle: Title
+  bannerDescription: Description
+  bannerButtonText: ButtonText
+}
