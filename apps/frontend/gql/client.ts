@@ -9,6 +9,17 @@ export const LinkDataFragmentDoc = gql`
   default
 }
     `;
+export const ButtonBlockPropertyDataFragmentDoc = gql`
+    fragment ButtonBlockPropertyData on ButtonBlockProperty {
+  children: ButtonText
+  url: ButtonUrl {
+    ...LinkData
+  }
+  className: ButtonClass
+  buttonType: ButtonType
+  buttonVariant: ButtonVariant
+}
+    `;
 export const ReferenceDataFragmentDoc = gql`
     fragment ReferenceData on ContentReference {
   key
@@ -134,6 +145,25 @@ export const VideoMediaComponentDataFragmentDoc = gql`
       default
     }
     name: displayName
+  }
+}
+    `;
+export const ContentCarouselDataFragmentDoc = gql`
+    fragment ContentCarouselData on ContentCarousel {
+  heading
+  _metadata {
+    key
+    locale
+  }
+}
+    `;
+export const ContentCarouselElementDataFragmentDoc = gql`
+    fragment ContentCarouselElementData on ContentCarouselElement {
+  heading
+  Type
+  _metadata {
+    key
+    locale
   }
 }
     `;
@@ -294,6 +324,7 @@ export const RichTextElementDataFragmentDoc = gql`
     json
     html
   }
+  csstext
 }
     `;
 export const TestimonialElementDataFragmentDoc = gql`
@@ -320,7 +351,7 @@ export const TextBlockDataFragmentDoc = gql`
   }
   center: TextCenter
   width: TextBlockWidth
-  className: TextClassName
+  textClassName: TextClassName
 }
     `;
 export const VideoElementDataFragmentDoc = gql`
@@ -351,6 +382,8 @@ export const ContinueReadingComponentDataFragmentDoc = gql`
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
+    ...ContentCarouselData
+    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -383,6 +416,8 @@ export const CarouselBlockDataFragmentDoc = gql`
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
+    ...ContentCarouselData
+    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -413,6 +448,8 @@ export const CompositionComponentNodeDataFragmentDoc = gql`
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
+    ...ContentCarouselData
+    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -501,6 +538,8 @@ export const BlogPostPageDataFragmentDoc = gql`
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
+    ...ContentCarouselData
+    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -546,6 +585,8 @@ export const LandingPageDataFragmentDoc = gql`
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
+    ...ContentCarouselData
+    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -571,6 +612,40 @@ export const LandingPageDataFragmentDoc = gql`
     ...ButtonBlockData
     ...CTAElementData
     ...CarouselBlockData
+    ...ContentCarouselData
+    ...ContentCarouselElementData
+    ...ContentRecsElementData
+    ...ContinueReadingComponentData
+    ...HeadingElementData
+    ...HeroBlockData
+    ...ImageElementData
+    ...LayoutSettingsBlockData
+    ...MegaMenuGroupBlockData
+    ...MenuNavigationBlockData
+    ...OdpEmbedBlockData
+    ...PageSeoSettingsData
+    ...ParagraphElementData
+    ...QuoteBlockData
+    ...RichTextElementData
+    ...TestimonialElementData
+    ...TextBlockData
+    ...VideoElementData
+    ...BlankSectionData
+  }
+}
+    `;
+export const StaticPageDataFragmentDoc = gql`
+    fragment StaticPageData on StaticPage {
+  PageTitle
+  PageContent {
+    ...BlockData
+    ...ArticleListElementData
+    ...BannerData
+    ...ButtonBlockData
+    ...CTAElementData
+    ...CarouselBlockData
+    ...ContentCarouselData
+    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -673,6 +748,8 @@ ${CarouselBlockDataFragmentDoc}
 ${IContentListItemFragmentDoc}
 ${ImageMediaComponentDataFragmentDoc}
 ${VideoMediaComponentDataFragmentDoc}
+${ContentCarouselDataFragmentDoc}
+${ContentCarouselElementDataFragmentDoc}
 ${ContentRecsElementDataFragmentDoc}
 ${HeadingElementDataFragmentDoc}
 ${HeroBlockDataFragmentDoc}
@@ -850,6 +927,36 @@ export const getLandingPageMetaDataDocument = gql`
         }
       }
       SeoSettings {
+        MetaTitle
+        MetaDescription
+        SharingImage {
+          ...ReferenceData
+        }
+        GraphType
+      }
+    }
+  }
+}
+    ${ReferenceDataFragmentDoc}
+${LinkDataFragmentDoc}`;
+export const getStaticPageMetaDataDocument = gql`
+    query getStaticPageMetaData($key: String!, $version: String, $locale: [Locales]) {
+  StaticPage(
+    where: {_metadata: {key: {eq: $key}, version: {eq: $version}}}
+    locale: $locale
+  ) {
+    pages: items {
+      _metadata {
+        displayName
+        key
+        version
+        locale
+        url {
+          base
+        }
+      }
+      PageTitle
+      SeoSetting {
         MetaTitle
         MetaDescription
         SharingImage {
@@ -1080,6 +1187,8 @@ export const getContentByIdDocument = gql`
       ...ButtonBlockData
       ...CTAElementData
       ...CarouselBlockData
+      ...ContentCarouselData
+      ...ContentCarouselElementData
       ...ContentRecsElementData
       ...ContinueReadingComponentData
       ...HeadingElementData
@@ -1101,6 +1210,7 @@ export const getContentByIdDocument = gql`
       ...BlogSectionExperienceData
       ...BlogPostPageData
       ...LandingPageData
+      ...StaticPageData
     }
   }
 }
@@ -1117,6 +1227,8 @@ ${CarouselBlockDataFragmentDoc}
 ${IContentListItemFragmentDoc}
 ${ImageMediaComponentDataFragmentDoc}
 ${VideoMediaComponentDataFragmentDoc}
+${ContentCarouselDataFragmentDoc}
+${ContentCarouselElementDataFragmentDoc}
 ${ContentRecsElementDataFragmentDoc}
 ${ContinueReadingComponentDataFragmentDoc}
 ${HeadingElementDataFragmentDoc}
@@ -1146,7 +1258,8 @@ ${ElementDataFragmentDoc}
 ${IElementDataFragmentDoc}
 ${BlogSectionExperienceDataFragmentDoc}
 ${BlogPostPageDataFragmentDoc}
-${LandingPageDataFragmentDoc}`;
+${LandingPageDataFragmentDoc}
+${StaticPageDataFragmentDoc}`;
 export const getContentByPathDocument = gql`
     query getContentByPath($path: [String!]!, $locale: [Locales!], $siteId: String, $changeset: String = null) {
   content: _Content(
@@ -1161,6 +1274,7 @@ export const getContentByPathDocument = gql`
       ...BlogSectionExperienceData
       ...BlogPostPageData
       ...LandingPageData
+      ...StaticPageData
     }
   }
 }
@@ -1185,6 +1299,8 @@ ${CarouselBlockDataFragmentDoc}
 ${IContentListItemFragmentDoc}
 ${ImageMediaComponentDataFragmentDoc}
 ${VideoMediaComponentDataFragmentDoc}
+${ContentCarouselDataFragmentDoc}
+${ContentCarouselElementDataFragmentDoc}
 ${ContentRecsElementDataFragmentDoc}
 ${ContinueReadingComponentDataFragmentDoc}
 ${HeadingElementDataFragmentDoc}
@@ -1206,7 +1322,8 @@ ${VideoElementDataFragmentDoc}
 ${BlankSectionDataFragmentDoc}
 ${BlogSectionExperienceDataFragmentDoc}
 ${BlogPostPageDataFragmentDoc}
-${LandingPageDataFragmentDoc}`;
+${LandingPageDataFragmentDoc}
+${StaticPageDataFragmentDoc}`;
 export const getContentTypeDocument = gql`
     query getContentType($key: String!, $version: String, $locale: [Locales!], $path: String = "-", $domain: String) {
   content: _Content(
@@ -1254,6 +1371,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getLandingPageMetaData(variables: Schema.getLandingPageMetaDataQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<Schema.getLandingPageMetaDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<Schema.getLandingPageMetaDataQuery>({ document: getLandingPageMetaDataDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'getLandingPageMetaData', 'query', variables);
+    },
+    getStaticPageMetaData(variables: Schema.getStaticPageMetaDataQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<Schema.getStaticPageMetaDataQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<Schema.getStaticPageMetaDataQuery>({ document: getStaticPageMetaDataDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'getStaticPageMetaData', 'query', variables);
     },
     getFooterData(variables?: Schema.getFooterDataQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<Schema.getFooterDataQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<Schema.getFooterDataQuery>({ document: getFooterDataDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'getFooterData', 'query', variables);

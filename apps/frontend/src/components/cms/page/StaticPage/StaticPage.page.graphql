@@ -1,0 +1,6 @@
+fragment StaticPageData on StaticPage {
+  PageTitle
+  PageContent {
+    ...BlockData
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "key": "ProductsCarousel",
+  "displayName": "Hot This Week Products",
+  "contentType": "CarouselBlock",
+  "isDefault": false,
+  "settings": {}
+}

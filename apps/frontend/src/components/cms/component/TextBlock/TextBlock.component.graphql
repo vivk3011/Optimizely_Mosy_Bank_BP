@@ -8,5 +8,5 @@ fragment TextBlockData on TextBlock {
   }
   center: TextCenter
   width: TextBlockWidth
-  className: TextClassName
+  textClassName: TextClassName
 }

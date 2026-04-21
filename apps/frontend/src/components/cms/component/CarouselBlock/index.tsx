@@ -3,10 +3,21 @@ import { type CarouselBlockDataFragment, CarouselBlockDataFragmentDoc } from "@g
 import dynamic from "next/dynamic";
 import "server-only";
 import { CmsContentArea, CmsEditable } from "@remkoj/optimizely-cms-react/rsc";
+import type ProductsCarouselStylesJson from "./ProductsCarouselStyles.opti-style.json";
+import type { LayoutProps } from "@remkoj/optimizely-cms-react";
+import productsData from "@/data/hot-this-week.json";
 
 const CarouselBlockComponent = dynamic(() => import("./_carousel-block"), { ssr: true });
+const ProductCarousel = dynamic(() => import("@/components/shared/product_placeholder/ProductCarousel"), { ssr: true });
 
-export const CarouselBlock: CmsComponent<CarouselBlockDataFragment> = async ({ data, contentLink, ctx }) => {
+type ProductsCarouselLayoutProps = LayoutProps<typeof ProductsCarouselStylesJson>;
+
+export const CarouselBlock: CmsComponent<CarouselBlockDataFragment> = async ({ data, contentLink, layoutProps, ctx }) => {
+  // Render Hot This Week product carousel when the ProductsCarousel display template is selected
+  if ((layoutProps as ProductsCarouselLayoutProps | undefined)?.template === "ProductsCarousel") {
+    return <ProductCarousel products={productsData} />;
+  }
+
   const items = data?.CarouselItemsContentArea || [];
 
   return (

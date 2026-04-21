@@ -10,7 +10,7 @@ type LogoProps = JSX.IntrinsicElements["a"] & {
 };
 
 export const Logo: FunctionComponent<LogoProps> = ({
-  logo = "/assets/moseybank-logo.svg",
+  logo = "https://assetshare.basspro.com/content/dam/bps-general-assets/web/site-elements/images/Redesign/Header/bass-pro-logo-2x.png",
   ...divProps
 }) => {
   // Create a stable default value that doesn't change every render
@@ -22,7 +22,7 @@ export const Logo: FunctionComponent<LogoProps> = ({
     <Link href="/" className="flex items-center grow-0 shrink-0" {...divProps}>
       <Image
         src={logoUrl}
-        alt="Mosey Bank Logo"
+        alt="Bass Pro Shops Logo"
         fill
         unoptimized
         priority

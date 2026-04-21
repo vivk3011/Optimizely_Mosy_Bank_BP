@@ -7,20 +7,34 @@ import {
   RichTextElementDataFragmentDoc,
   type RichTextElementDataFragment,
 } from "@/gql/graphql";
-import { RichTextElementLayoutProps } from "./displayTemplates";
+import { type RichTextElementLayoutProps } from "./displayTemplates";
 
-type PropsMap = Required<
-  ReturnType<typeof extractSettings<RichTextElementLayoutProps>>
->;
-type ValueMap<K extends keyof PropsMap, DT = any> = {
-  [PropValue in PropsMap[K]]: DT;
+const variantClass: Record<string, string> = {
+  default: "prose max-w-none",
+  promo:   "prose max-w-none bg-yellow-50 border border-yellow-200 rounded-2xl p-4",
+  inverse: "prose prose-invert max-w-none bg-slate-900 text-white rounded-2xl p-4",
 };
 
-const WidthMap: ValueMap<"width", string> = {
-  full: "prose max-w-none",
-  default: "prose mx-auto",
-  defaultLeft: "prose mr-auto",
-  defaultRight: "prose ml-auto",
+const alignClass: Record<string, string> = {
+  left:   "text-left",
+  center: "text-center",
+  right:  "text-right",
+};
+
+const spacingClass: Record<string, string> = {
+  none: "",
+  sm:   "my-2",
+  md:   "my-4",
+  lg:   "my-8",
+};
+
+const bgColorClass: Record<string, string> = {
+  none:   "",
+  white:  "bg-white",
+  gray:   "bg-gray-100",
+  blue:   "bg-blue-50",
+  yellow: "bg-yellow-50",
+  dark:   "bg-slate-900 text-white",
 };
 
 /**
@@ -31,25 +45,45 @@ export const RichTextElementElement: CmsComponent<
   RichTextElementDataFragment,
   RichTextElementLayoutProps
 > = ({ data, layoutProps, contentLink, ctx }) => {
-  const { width = "full" } = extractSettings(layoutProps);
+  const {
+    width           = "full",
+    variant         = "default",
+    alignment       = "left",
+    spacing         = "md",
+    backgroundColor = "none",
+  } = extractSettings(layoutProps);
 
-  const cssClassName = WidthMap[width];
+  // width overrides alignment when set to non-full values (legacy setting)
+  const widthClass: Record<string, string> = {
+    full:         "",
+    default:      "max-w-prose mx-auto",
+    defaultLeft:  "max-w-prose mr-auto",
+    defaultRight: "max-w-prose ml-auto",
+  };
+
+  const className = [
+    "cms-richtext",
+    variantClass[variant]         ?? variantClass.default,
+    width !== "full" ? (widthClass[width] ?? "") : (alignClass[alignment] ?? alignClass.left),
+    spacingClass[spacing]         ?? spacingClass.md,
+    bgColorClass[backgroundColor] ?? "",
+  ].join(" ");
+
+  const styleId = `rte-${contentLink.key}`;
 
   return (
-    <RichText
-      // Set the ID and fieldname expected by the CMS, with context to allow
-      // the CmsEditable containe within RichText to work
-      cmsId={contentLink.key}
-      cmsFieldName="text"
-      ctx={ctx}
-
-      // Set the actual text
-      text={data.text?.json}
-
-      // Additional properties for the 'div' wrapper
-      className={cssClassName}
-      data-component="RichTextElement"
-    />
+    <div id={styleId} className={className}>
+      {data?.csstext && (
+        <style dangerouslySetInnerHTML={{ __html: `#${styleId} { ${data.csstext} }` }} />
+      )}
+      <RichText
+        cmsId={contentLink.key}
+        cmsFieldName="text"
+        ctx={ctx}
+        text={data?.text?.json}
+        data-component="RichTextElement"
+      />
+    </div>
   );
 };
 RichTextElementElement.displayName = "Rich Text (Element/RichTextElement)";

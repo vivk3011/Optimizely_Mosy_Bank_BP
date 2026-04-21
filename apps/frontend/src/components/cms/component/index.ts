@@ -24,6 +24,8 @@ import CTAElementComponent from "./CTAElement";
 import ButtonBlockComponent from "./ButtonBlock";
 import ArticleListElementComponent from "./ArticleListElement";
 import ArticleListElementLoader from "./ArticleListElement/loading";
+import ContentCarouselElementComponent from "./ContentCarouselElement";
+import ContentCarouselComponent from "./ContentCarousel";
 import ComponentPageFactory from "./Page";
 
 // Prefix entries - if needed
@@ -136,6 +138,14 @@ export const ComponentFactory : ComponentTypeDictionary = [
         component: ArticleListElementComponent,
         useSuspense: true,
         loader: ArticleListElementLoader
+    },
+    {
+        type: "ContentCarouselElement",
+        component: ContentCarouselElementComponent
+    },
+    {
+        type: "ContentCarousel",
+        component: ContentCarouselComponent
     },
     ...ComponentPageFactory
 ];

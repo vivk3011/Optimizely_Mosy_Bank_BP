@@ -1,0 +1,7 @@
+fragment ContentCarouselData on ContentCarousel {
+  heading
+  _metadata {
+    key
+    locale
+  }
+}

@@ -22,5 +22,16 @@
       "indexingType": "searchable",
       "editorSettings": {}
     }
+    "csstext": {
+      "type": "string",
+      "displayName": "CSS Text",
+      "description": "",
+      "localized": true,
+      "required": false,
+      "group": "Information",
+      "sortOrder": 10,
+      "indexingType": "searchable",
+      "editorSettings": {}
+    }
   }
 }

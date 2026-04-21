@@ -6,7 +6,7 @@ const TextBlock: CmsComponent<Partial<TextBlockDataFragment>> = ({
   inEditMode,
 }) => {
   const {
-    className = "",
+    textClassName: className = "",
     center = false,
     width = "full",
     headingSize = "medium",

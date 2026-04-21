@@ -27,6 +27,13 @@ const config: Config = {
       'inherit': 'inherit'
     },
     extend: {
+      colors: {
+        // Shades used by RichTextBlock display template settings
+        blue:   { 50: '#eff6ff' },
+        gray:   { 100: '#f3f4f6' },
+        yellow: { 50: '#fefce8', 200: '#fef08a' },
+        slate:  { 900: '#0f172a' },
+      },
       typography: {
         DEFAULT: {
           css: {
@@ -59,7 +66,17 @@ const config: Config = {
     'flex-row-reverse',
     'flex-col-reverse',
     'opti-content-area',
-    'opti-content-area-item'
+    'opti-content-area-item',
+    // RichTextBlock — variant
+    'prose', 'prose-invert', 'max-w-none',
+    'bg-yellow-50', 'border', 'border-yellow-200', 'rounded-2xl', 'p-4',
+    'bg-slate-900',
+    // RichTextBlock — alignment
+    'text-left', 'text-center', 'text-right',
+    // RichTextBlock — spacing
+    'my-2', 'my-4', 'my-8',
+    // RichTextBlock — backgroundColor
+    'bg-white', 'bg-gray-100', 'bg-blue-50', 'bg-yellow-50', 'bg-slate-900', 'text-white',
   ],
   plugins: [
     require('@tailwindcss/typography'),

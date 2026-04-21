@@ -1,0 +1,32 @@
+query getStaticPageMetaData($key: String!, $version: String, $locale: [Locales]) {
+  StaticPage(
+    where: {
+      _metadata: {
+        key: { eq: $key }
+        version: { eq: $version }
+      }
+    }
+    locale: $locale
+  ) {
+    pages: items {
+      _metadata {
+        displayName
+        key
+        version
+        locale
+        url {
+          base
+        }
+      }
+      PageTitle
+      SeoSetting {
+        MetaTitle
+        MetaDescription
+        SharingImage {
+          ...ReferenceData
+        }
+        GraphType
+      }
+    }
+  }
+}

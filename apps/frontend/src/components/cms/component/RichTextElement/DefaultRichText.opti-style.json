@@ -6,7 +6,7 @@
   "settings": {
     "width": {
       "displayName": "Width",
-      "editor": "",
+      "editor": "selectOne",
       "sortOrder": 10,
       "choices": {
         "full": {
@@ -15,7 +15,7 @@
         },
         "default": {
           "displayName": "Default (Center)",
-          "sortOrder": 10
+          "sortOrder": 15
         },
         "defaultLeft": {
           "displayName": "Default (Left)",
@@ -24,6 +24,102 @@
         "defaultRight": {
           "displayName": "Default (Right)",
           "sortOrder": 10
+        }
+      }
+    },
+    "variant": {
+      "displayName": "Variant",
+      "editor": "selectOne",
+      "sortOrder": 20,
+      "choices": {
+        "default": {
+          "displayName": "Default",
+          "isDefault": true,
+          "sortOrder": 10
+        },
+        "promo": {
+          "displayName": "Promo",
+          "sortOrder": 20
+        },
+        "inverse": {
+          "displayName": "Inverse (Dark)",
+          "sortOrder": 30
+        }
+      }
+    },
+    "alignment": {
+      "displayName": "Alignment",
+      "editor": "selectOne",
+      "sortOrder": 30,
+      "choices": {
+        "left": {
+          "displayName": "Left",
+          "isDefault": true,
+          "sortOrder": 10
+        },
+        "center": {
+          "displayName": "Center",
+          "sortOrder": 20
+        },
+        "right": {
+          "displayName": "Right",
+          "sortOrder": 30
+        }
+      }
+    },
+    "spacing": {
+      "displayName": "Spacing",
+      "editor": "selectOne",
+      "sortOrder": 40,
+      "choices": {
+        "none": {
+          "displayName": "None",
+          "sortOrder": 10
+        },
+        "sm": {
+          "displayName": "Small",
+          "sortOrder": 20
+        },
+        "md": {
+          "displayName": "Medium",
+          "isDefault": true,
+          "sortOrder": 30
+        },
+        "lg": {
+          "displayName": "Large",
+          "sortOrder": 40
+        }
+      }
+    },
+    "backgroundColor": {
+      "displayName": "Background Color",
+      "editor": "selectOne",
+      "sortOrder": 50,
+      "choices": {
+        "none": {
+          "displayName": "None",
+          "isDefault": true,
+          "sortOrder": 10
+        },
+        "white": {
+          "displayName": "White",
+          "sortOrder": 20
+        },
+        "gray": {
+          "displayName": "Light Gray",
+          "sortOrder": 30
+        },
+        "blue": {
+          "displayName": "Light Blue",
+          "sortOrder": 40
+        },
+        "yellow": {
+          "displayName": "Yellow",
+          "sortOrder": 50
+        },
+        "dark": {
+          "displayName": "Dark",
+          "sortOrder": 60
         }
       }
     }

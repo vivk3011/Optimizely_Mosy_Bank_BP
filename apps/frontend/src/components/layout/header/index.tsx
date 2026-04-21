@@ -31,8 +31,8 @@ export default async function SiteHeader({ locale, ctx }: HeaderProps)
     const headerData = await getSdk(currentClient).getHeaderData({
         locale: currentLocale,
         domain: currentDomain
-    }).then(x => x.appLayout?.items?.at(0)).catch((e: { response: { code: string, status: number, system: { message: string, auth: string} }}) => {
-        console.error(`❌ [Optimizely Graph] [Error] ${e.response.code} ${e.response.system.message} ${e.response.system.auth}`)
+    }).then(x => x.appLayout?.items?.at(0)).catch((e: { response?: { code?: string, status?: number, system?: { message?: string, auth?: string} }}) => {
+        console.error(`❌ [Optimizely Graph] [Error] ${e?.response?.code} ${e?.response?.system?.message} ${e?.response?.system?.auth}`)
         return undefined
     })
 
