@@ -32,11 +32,11 @@ LandingPage.getMetaData = async (contentLink, locale, client) => {
     return {}
   const cmsManagedData = matchingPosts[0]
   const meta : WithPropertySet<Metadata, 'openGraph'> = {
-    title: cmsManagedData.SeoSettings?.MetaTitle ?? cmsManagedData._metadata?.displayName,
+    title: cmsManagedData.SeoSettings?.metaTitle ?? cmsManagedData._metadata?.displayName,
     description: cmsManagedData.SeoSettings?.MetaDescription,
     metadataBase: tryToUrl(cmsManagedData?._metadata?.url?.base),
     openGraph: {
-      title: cmsManagedData.SeoSettings?.MetaTitle ?? cmsManagedData._metadata?.displayName ?? undefined,
+      title: cmsManagedData.SeoSettings?.metaTitle ?? cmsManagedData._metadata?.displayName ?? undefined,
       description: cmsManagedData.SeoSettings?.MetaDescription ?? undefined,
     },
     other: {
