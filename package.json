@@ -45,5 +45,8 @@
   "resolutions": {
     "whatwg-url": "^14",
     "@graphql-codegen/visitor-plugin-common": "file:./packages/graphql-codegen-visitor-plugin-common-v5.8.0-patched.tgz"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
   }
 }

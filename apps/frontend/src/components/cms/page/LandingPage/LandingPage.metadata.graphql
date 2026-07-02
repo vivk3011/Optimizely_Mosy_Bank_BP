@@ -19,7 +19,7 @@ query getLandingPageMetaData($key: String!, $version: String, $locale: [Locales]
         }
       }
       SeoSettings {
-        MetaTitle
+        metaTitle
         MetaDescription
         SharingImage {
           ...ReferenceData

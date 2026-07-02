@@ -1,5 +1,6 @@
 import "server-only";
-import { createClient } from "@remkoj/optimizely-graph-client";
+import { draftMode } from "next/headers";
+import { createClient, AuthMode } from "@remkoj/optimizely-graph-client";
 import { createPage } from "@remkoj/optimizely-cms-nextjs/page";
 import { factory } from "@components/factory";
 import { getContentByPath } from "@/lib/loaders";
@@ -25,12 +26,20 @@ const {
     return supportedLocaleMap.get(requested) ?? fallbackLocale;
   },
 
-  client: () =>
-    createClient(undefined, undefined, {
+  client: () => {
+    let isDraft = false;
+    try { isDraft = draftMode().isEnabled; } catch { /* no request scope (e.g. generateStaticParams) */ }
+    const client = createClient(undefined, undefined, {
       nextJsFetchDirectives: true,
-      cache: true,
-      queryCache: true,
-    }),
+      cache: !isDraft,
+      queryCache: !isDraft,
+    });
+    if (isDraft) {
+      client.updateAuthentication(AuthMode.HMAC);
+      client.enablePreview();
+    }
+    return client;
+  },
 });
 
 // force-dynamic: locale and siteId come from request headers set by middleware

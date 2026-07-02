@@ -14,6 +14,21 @@ function pathVariants(path: string): string[] {
   return p === "/" ? ["/"] : [p, `${p}/`];
 }
 
+function withLocaleFallbackPaths(path: string, locale?: string): string[] {
+  const normalized = normalizePath(path);
+  if (!locale) return [normalized];
+  const localePrefix = `/${String(locale).toLowerCase()}`;
+  const normalizedLower = normalized.toLowerCase();
+
+  if (normalizedLower === localePrefix) return ["/"];
+  if (normalizedLower.startsWith(`${localePrefix}/`)) {
+    const withoutLocale = normalizePath(normalized.substring(localePrefix.length));
+    return Array.from(new Set([normalized, withoutLocale]));
+  }
+
+  return [normalized];
+}
+
 function domainCandidates(baseUrl?: string, siteId?: string): string[] {
   const list: string[] = [];
   if (baseUrl) {
@@ -38,10 +53,11 @@ export async function getContentByPath(
   const { siteId, locale, baseUrl, startPagePath } = getOptiContext();
   const incomingPath = normalizePath(((variables as any)?.path?.[0] as string | undefined) || "/");
   const routePath = incomingPath === "/" && startPagePath ? normalizePath(startPagePath) : incomingPath;
+  const candidateRoutePaths = withLocaleFallbackPaths(routePath, locale);
 
   const resolver = new RouteResolver(client as any);
   const domains = domainCandidates(baseUrl, siteId);
-  const paths = pathVariants(routePath);
+  const paths = Array.from(new Set(candidateRoutePaths.flatMap(pathVariants)));
 
   let route: any;
   for (const domain of domains) {
@@ -75,7 +91,7 @@ export async function getContentByPath(
   return baseGetContentByPath(client, {
     ...variables,
     siteId: baseUrl || siteId,
-    path: pathVariants(routePath),
+    path: paths,
     ...(locale ? { locale: [locale as any] } : {}),
   } as any);
 }

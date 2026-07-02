@@ -1,0 +1,43 @@
+{
+  "servers": {
+    "saas-mcp-optimizely-graph-cd": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["C:\\Projects\\Optimizely Saas\\GitRepo\\Optimizely-SaaS-MCP-Server\\dist\\cd-graph-index.js"],
+      "env": {
+        "LOG_LEVEL": "error",
+        "GRAPH_ENDPOINT": "https://cg.optimizely.com/content/v2",
+        "GRAPH_AUTH_METHOD": "single_key",
+        "GRAPH_SINGLE_KEY": "5mfSAWUerG5GuKHpNs4kNzVAU5EfZERnhRyHSsQQMtpSTreA",
+        "CMA_BASE_URL": "https://api.cms.optimizely.com/v1",
+        "CMA_V1_CONTENTTYPES_URL": "https://api.cms.optimizely.com/v1/contenttypes",
+        "CMA_CLIENT_ID": "63eb7cf13ceb489488ebbfd70c59a385",
+        "CMA_CLIENT_SECRET": "pKeMjcrPqnxE1G42QhgNxSgVFVOhbSESkpjGXB2XXLvsGZq2",
+        "CMA_GRANT_TYPE": "client_credentials",
+        "CMA_TOKEN_ENDPOINT": "https://api.cms.optimizely.com/oauth/token",
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0",
+        "DATA_SAVE_PATH": "C:\\workspace\\DCX\\optimizely\\Mosy_bank\\Optimizely_Mosy_Bank\\AI\\data.json"
+      }
+    },
+    "saas-mcp-optimizely-restapi-cm": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["C:\\Projects\\Optimizely Saas\\GitRepo\\Optimizely-SaaS-MCP-Server\\dist\\cm-restapi-index.js"],
+      "env": {
+        "LOG_LEVEL": "error",
+        "GRAPH_ENDPOINT": "https://cg.optimizely.com/content/v2",
+        "GRAPH_AUTH_METHOD": "single_key",
+        "GRAPH_SINGLE_KEY": "5mfSAWUerG5GuKHpNs4kNzVAU5EfZERnhRyHSsQQMtpSTreA",
+        "CMA_BASE_URL": "https://api.cms.optimizely.com/v1",
+        "CMA_V1_CONTENTTYPES_URL": "https://api.cms.optimizely.com/v1/contenttypes",
+        "CMA_CLIENT_ID": "63eb7cf13ceb489488ebbfd70c59a385",
+        "CMA_CLIENT_SECRET": "pKeMjcrPqnxE1G42QhgNxSgVFVOhbSESkpjGXB2XXLvsGZq2",
+        "CMA_GRANT_TYPE": "client_credentials",
+        "CMA_TOKEN_ENDPOINT": "https://api.cms.optimizely.com/oauth/token",
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0",
+        "DATA_SAVE_PATH": "C:\\workspace\\DCX\\optimizely\\Mosy_bank\\Optimizely_Mosy_Bank\\AI\\data.json"
+      }
+    }
+  }
+}
+ 

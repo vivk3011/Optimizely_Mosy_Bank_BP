@@ -18,7 +18,7 @@ query getBlankExperienceMetaData ($key: String!, $locale: [Locales])
         displayName
       }
       seo: BlankExperienceSeoSettings {
-        title:MetaTitle
+        title:metaTitle
         description:MetaDescription
         image:SharingImage { ...ReferenceData }
         type:GraphType

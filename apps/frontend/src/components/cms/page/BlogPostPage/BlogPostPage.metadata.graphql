@@ -19,7 +19,7 @@ query getBlogPostPageMetaData($key: String!, $version: String, $locale: [Locales
       }
       topics: Topic
       seo: SeoSettings {
-        title: MetaTitle
+        title: metaTitle
         description: MetaDescription
         keywords: MetaKeywords
         image: SharingImage {

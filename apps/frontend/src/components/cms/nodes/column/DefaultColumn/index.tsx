@@ -13,8 +13,10 @@ import {
 
 export const DefaultColumn : CmsLayoutComponent<DefaultColumnProps> = ({ layoutProps, children }) => {
     const tpl = layoutProps?.template ?? "none"
-    const baseClasses : string[] = ['vb:column vb:column:'+tpl+' flex-1']
-    const cssClasses : string[] = ['flex flex-col']
+    // min-w-0 lets flex children (e.g. carousels measuring their own width)
+    // respect the column's share instead of pushing the row wider.
+    const baseClasses : string[] = ['vb:column vb:column:'+tpl+' flex-1 min-w-0']
+    const cssClasses : string[] = ['flex flex-col min-w-0']
     const { 
         contentSpacing = 'none', 
         justifyContent = 'start', 

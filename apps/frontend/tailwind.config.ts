@@ -33,6 +33,10 @@ const config: Config = {
         gray:   { 100: '#f3f4f6' },
         yellow: { 50: '#fefce8', 200: '#fef08a' },
         slate:  { 900: '#0f172a' },
+        brandBlue: "#1E40AF",
+        brandYellow: "#fef08a",
+        productBg: "#F3F8FF",
+        productText: "#0F172A",
       },
       typography: {
         DEFAULT: {
@@ -77,7 +81,13 @@ const config: Config = {
     'my-2', 'my-4', 'my-8',
     // RichTextBlock — backgroundColor
     'bg-white', 'bg-gray-100', 'bg-blue-50', 'bg-yellow-50', 'bg-slate-900', 'text-white',
-  ],
+    "bg-transparent",
+    "bg-gray-100",
+    "bg-white",
+    "bg-black",
+    "bg-blue-50",
+
+   ],
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),

@@ -1,4 +1,5 @@
 fragment RichTextElementData on RichTextElement {
   text { json, html }
   csstext
+  jstext
 }

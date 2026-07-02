@@ -20,7 +20,7 @@ query getStaticPageMetaData($key: String!, $version: String, $locale: [Locales])
       }
       PageTitle
       SeoSetting {
-        MetaTitle
+        metaTitle
         MetaDescription
         SharingImage {
           ...ReferenceData

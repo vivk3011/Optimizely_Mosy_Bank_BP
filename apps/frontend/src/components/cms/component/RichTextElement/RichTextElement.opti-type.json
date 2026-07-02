@@ -21,7 +21,7 @@
       "sortOrder": 10,
       "indexingType": "searchable",
       "editorSettings": {}
-    }
+    },
     "csstext": {
       "type": "string",
       "displayName": "CSS Text",
@@ -29,8 +29,19 @@
       "localized": true,
       "required": false,
       "group": "Information",
-      "sortOrder": 10,
+      "sortOrder": 20,
       "indexingType": "searchable",
+      "editorSettings": {}
+    },
+    "jstext": {
+      "type": "string",
+      "format": "textarea",
+      "displayName": "JS Text",
+      "description": "JavaScript to execute when this component renders",
+      "localized": false,
+      "required": false,
+      "group": "Information",
+      "sortOrder": 30,
       "editorSettings": {}
     }
   }

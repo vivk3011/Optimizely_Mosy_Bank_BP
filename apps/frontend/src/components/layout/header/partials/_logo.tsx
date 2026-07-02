@@ -2,22 +2,28 @@
 import { useMemo } from "react"
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { type JSX, type FunctionComponent } from "react";
 import useFlag from "@/useFlag";
+
+const BASSPRO_LOGO = "https://assetshare.basspro.com/content/dam/bps-general-assets/web/site-elements/images/Redesign/Header/bass-pro-logo-2x.png";
 
 type LogoProps = JSX.IntrinsicElements["a"] & {
   logo?: string;
 };
 
 export const Logo: FunctionComponent<LogoProps> = ({
-  logo = "https://assetshare.basspro.com/content/dam/bps-general-assets/web/site-elements/images/Redesign/Header/bass-pro-logo-2x.png",
+  logo = BASSPRO_LOGO,
   ...divProps
 }) => {
+  const pathname = usePathname();
   // Create a stable default value that doesn't change every render
   const defaultValue = useMemo(() => { return { logo, theme_switcher: false } }, [ logo ])
-
   // Get the logo configuration
-  const { logo: logoUrl } = useFlag("layout_configuration", defaultValue);
+  const { logo: flagLogoUrl } = useFlag("layout_configuration", defaultValue);
+
+  const logoUrl = pathname?.startsWith("/support/basspro") ? BASSPRO_LOGO : flagLogoUrl;
+
   return (
     <Link href="/" className="flex items-center grow-0 shrink-0" {...divProps}>
       <Image

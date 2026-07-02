@@ -8,6 +8,7 @@ import {
   type RichTextElementDataFragment,
 } from "@/gql/graphql";
 import { type RichTextElementLayoutProps } from "./displayTemplates";
+import Script from "next/script";
 
 const variantClass: Record<string, string> = {
   default: "prose max-w-none",
@@ -83,6 +84,11 @@ export const RichTextElementElement: CmsComponent<
         text={data?.text?.json}
         data-component="RichTextElement"
       />
+      {data?.jstext && (
+        <Script id={`jstext-${contentLink.key}`} strategy="afterInteractive">
+          {data.jstext}
+        </Script>
+      )}
     </div>
   );
 };

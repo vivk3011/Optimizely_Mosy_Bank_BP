@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { useWindowWidth } from "@react-hook/window-size/throttled";
 
 export type Product = {
   id: string;
@@ -18,10 +17,67 @@ export type Product = {
   url: string;
 };
 
+export type ProductCardAspectRatio = "square" | "portrait" | "photo" | "monitor" | "widescreen";
+export type ProductCardOrientation = "landscape" | "portrait";
+export type ProductCardRoundedCorners = "none" | "small" | "medium" | "large" | "huge" | "full";
+export type ProductCardStyle = "default" | "compact" | "minimal" | "featured";
+export type ProductItemsPerView = "one" | "two" | "three" | "four" | "five";
+export type ProductMaxItems = "all" | "four" | "eight" | "twelve" | "sixteen" | "twenty";
+export type ProductFadeAppear = "none" | "fade";
+export type ProductFadeSpeed = "none" | "short" | "medium" | "long" | "verylong";
+export type ProductBackgroundColor = "transparent" | "grey" | "white" | "black" | "blue"   | "brandBlue" | "brandYellow";
+export type ProductTextColor = "auto" | "dark" | "light" | "muted" | "accent" | "brandBlue" | "brandYellow";
+export type ProductToggle = "yes" | "no";
+export type ProductOnOff = "on" | "off";
+export type ProductAutoplayInterval = "veryfast" | "fast" | "medium" | "slow";
+export type ProductSlideGap = "none" | "small" | "medium" | "large";
+
 type ProductCarouselProps = {
   products: Product[];
   heading?: string;
+  aspectRatio?: ProductCardAspectRatio;
+  orientation?: ProductCardOrientation;
+  roundedCorners?: ProductCardRoundedCorners;
+  bgColor?: ProductBackgroundColor;
+  textColor?: ProductTextColor;
+  cardStyle?: ProductCardStyle;
+  itemsPerView?: ProductItemsPerView;
+  maxItems?: ProductMaxItems;
+  appear?: ProductFadeAppear;
+  duration?: ProductFadeSpeed;
+  delay?: ProductFadeSpeed;
+  showArrows?: ProductToggle;
+  showDots?: ProductToggle;
+  autoplay?: ProductOnOff;
+  autoplayInterval?: ProductAutoplayInterval;
+  loop?: ProductOnOff;
+  slideGap?: ProductSlideGap;
 };
+
+// Auto picks readable text based on background; explicit values override.
+const TEXT_COLOR_CLASSES: Record<ProductTextColor, string> = {
+  auto: "",
+  dark: "!text-gray-900",
+  light: "!text-white",
+  muted: "!text-gray-500",
+  accent: "!text-orange-600",
+  brandBlue: "!text-brandBlue",
+  brandYellow: "!text-brandYellow",
+};
+
+const AUTO_TEXT_FOR_BG: Record<ProductBackgroundColor, string> = {
+  transparent: "text-gray-900",
+  grey: "text-gray-900",
+  white: "text-gray-900",
+  blue: "text-gray-900",
+  black: "text-white",
+  brandBlue: "text-white",
+  brandYellow: "text-gray-900",
+};
+
+function resolveTextClass(textColor: ProductTextColor, bgColor: ProductBackgroundColor) {
+  return textColor === "auto" ? AUTO_TEXT_FOR_BG[bgColor] : TEXT_COLOR_CLASSES[textColor];
+}
 
 const BADGE_COLORS: Record<string, string> = {
   "HOT DEAL": "bg-red-500",
@@ -30,6 +86,101 @@ const BADGE_COLORS: Record<string, string> = {
   "BEST VALUE": "bg-green-600",
   "NEW": "bg-blue-600",
 };
+
+// Use the `!` important prefix so the chosen background overrides the
+// default `bg-white` baked into CARD_STYLE_CLASSES (Tailwind utilities at
+// the same specificity are resolved by source order in the generated CSS,
+// not by className order, so plain `bg-blue-50` loses to `bg-white`).
+const BACKGROUND_COLOR_CLASSES: Record<ProductBackgroundColor, string> = {
+  transparent: "!bg-transparent",
+  grey: "!bg-gray-100",
+  white: "!bg-white",
+  black: "!bg-black",
+  blue: "!bg-blue-50",
+  brandBlue: "!bg-brandBlue",
+  brandYellow: "!bg-brandYellow",
+
+};
+
+const ASPECT_RATIO_CLASSES_LANDSCAPE: Record<ProductCardAspectRatio, string> = {
+  square: "aspect-square",
+  portrait: "aspect-[4/3]",
+  photo: "aspect-[3/2]",
+  monitor: "aspect-[4/3]",
+  widescreen: "aspect-[16/9]",
+};
+
+const ASPECT_RATIO_CLASSES_PORTRAIT: Record<ProductCardAspectRatio, string> = {
+  square: "aspect-square",
+  portrait: "aspect-[3/4]",
+  photo: "aspect-[2/3]",
+  monitor: "aspect-[3/4]",
+  widescreen: "aspect-[9/16]",
+};
+
+const ROUNDED_CORNERS_CLASSES: Record<ProductCardRoundedCorners, string> = {
+  none: "rounded-none",
+  small: "rounded",
+  medium: "rounded-lg",
+  large: "rounded-2xl",
+  huge: "rounded-[2rem]",
+  full: "rounded-full",
+};
+
+const CARD_STYLE_CLASSES: Record<ProductCardStyle, string> = {
+  default: "border border-gray-200 shadow-sm hover:shadow-md",
+  compact: "border border-gray-200 shadow-sm hover:shadow-md",
+  minimal: "",
+  featured: "border border-orange-200 shadow-lg hover:shadow-xl",
+};
+
+const CARD_BODY_PADDING: Record<ProductCardStyle, string> = {
+  default: "p-3 gap-1",
+  compact: "p-2 gap-0.5",
+  minimal: "p-2 gap-1",
+  featured: "p-4 gap-1.5",
+};
+
+const ITEMS_PER_VIEW_COUNT: Record<ProductItemsPerView, number> = {
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+};
+
+const MAX_ITEMS_COUNT: Record<ProductMaxItems, number | undefined> = {
+  all: undefined,
+  four: 4,
+  eight: 8,
+  twelve: 12,
+  sixteen: 16,
+  twenty: 20,
+};
+
+const FADE_SECONDS: Record<ProductFadeSpeed, number> = {
+  none: 0,
+  short: 0.5,
+  medium: 1,
+  long: 1.5,
+  verylong: 2,
+};
+
+const AUTOPLAY_INTERVAL_MS: Record<ProductAutoplayInterval, number> = {
+  veryfast: 1500,
+  fast: 3000,
+  medium: 5000,
+  slow: 7000,
+};
+
+const SLIDE_GAP_MAP: Record<ProductSlideGap, number> = {
+  none: 0,
+  small: 8,
+  medium: 16,
+  large: 32,
+};
+
+const SLIDE_GAP_PX = 16;
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -50,27 +201,47 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({
+  product,
+  aspectRatio = "square",
+  orientation = "landscape",
+  roundedCorners = "medium",
+  cardStyle = "default",
+  bgColor = "blue",
+  textColor = "auto",
+  fadeIn,
+}: {
+  product: Product;
+  aspectRatio?: ProductCardAspectRatio;
+  orientation?: ProductCardOrientation;
+  roundedCorners?: ProductCardRoundedCorners;
+  cardStyle?: ProductCardStyle;
+  bgColor?: ProductBackgroundColor;
+  textColor?: ProductTextColor;
+  fadeIn?: { duration: number; delay: number } | false;
+}) {
   const badgeColor = BADGE_COLORS[product.badge] ?? "bg-gray-700";
+  const cardClasses = `${ROUNDED_CORNERS_CLASSES[roundedCorners]} ${CARD_STYLE_CLASSES[cardStyle]} 
+  ${BACKGROUND_COLOR_CLASSES[bgColor]} 
+ ${resolveTextClass(textColor, bgColor)} transition-shadow overflow-hidden flex flex-col h-full`;
+  const aspectMap = orientation === "portrait" ? ASPECT_RATIO_CLASSES_PORTRAIT : ASPECT_RATIO_CLASSES_LANDSCAPE;
+  const imageWrapperClasses = `relative w-full overflow-hidden ${BACKGROUND_COLOR_CLASSES[bgColor]} ${aspectMap[aspectRatio]}`;
+  const bodyClasses = `flex flex-1 flex-col ${CARD_BODY_PADDING[cardStyle]}`;
 
-  return (
-    <a
-      href={product.url}
-      className="rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col h-full"
-    >
-      <div className="relative">
+  const inner = (
+    <a href={product.url} className={cardClasses}>
+      <div className={imageWrapperClasses}>
         <img
           src={product.image}
           alt={product.name}
-          width={300}
-          height={300}
-          className="w-full h-44 object-cover"
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-contain p-2"
         />
         <span className={`absolute top-2 left-2 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white ${badgeColor}`}>
           {product.badge}
         </span>
       </div>
-      <div className="flex flex-1 flex-col p-3 gap-1">
+      <div className={bodyClasses}>
         <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">{product.category}</span>
         <p className="text-sm font-semibold text-gray-800 line-clamp-2 leading-snug">{product.name}</p>
         <StarRating rating={product.rating} />
@@ -91,44 +262,134 @@ function ProductCard({ product }: { product: Product }) {
       </div>
     </a>
   );
+
+  if (fadeIn && fadeIn.duration > 0) {
+    return (
+      <motion.div
+        className="h-full"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: fadeIn.duration, delay: fadeIn.delay, ease: "easeOut" }}
+      >
+        {inner}
+      </motion.div>
+    );
+  }
+  return inner;
 }
 
-export default function ProductCarousel({ products, heading }: ProductCarouselProps) {
+export default function ProductCarousel({
+  products,
+  heading,
+  aspectRatio = "square",
+  orientation = "landscape",
+  roundedCorners = "medium",
+  cardStyle = "default",
+  itemsPerView = "four",
+  maxItems = "all",
+  appear = "none",
+  duration = "medium",
+  delay = "none",
+  bgColor = "blue",
+  textColor = "auto",
+  showArrows = "yes",
+  showDots = "yes",
+  autoplay = "off",
+  autoplayInterval = "medium",
+  loop = "off",
+  slideGap = "medium",
+}: ProductCarouselProps) {
+  const desiredPerView = ITEMS_PER_VIEW_COUNT[itemsPerView];
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemWidth, setItemWidth] = useState(25); // vw units
-  const windowWidth = useWindowWidth();
-  const itemCount = products.length;
 
-  // Match _carousel-block.tsx responsive breakpoints
+  const maxItemsCap = MAX_ITEMS_COUNT[maxItems];
+  const visibleProducts = maxItemsCap ? products.slice(0, maxItemsCap) : products;
+  const itemCount = visibleProducts.length;
+
+  const fadeDuration = FADE_SECONDS[duration];
+  const fadeBaseDelay = FADE_SECONDS[delay];
+  const fadeEnabled = appear === "fade" && fadeDuration > 0;
+
+  const gapPx = SLIDE_GAP_MAP[slideGap];
+  const arrowsEnabled = showArrows === "yes";
+  const dotsEnabled = showDots === "yes";
+  const loopEnabled = loop === "on";
+
+  // Measure the carousel's own container so the cards size to the parent
+  // (e.g. a CMS column), not the viewport. Avoids overflow when placed
+  // next to an image in a multi-column layout.
   useEffect(() => {
-    if (!windowWidth) return;
-    setItemWidth(windowWidth <= 900 ? 80 : 25);
-  }, [windowWidth]);
+    const node = trackRef.current;
+    if (!node || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setContainerWidth(entry.contentRect.width);
+      }
+    });
+    ro.observe(node);
+    setContainerWidth(node.getBoundingClientRect().width);
+    return () => ro.disconnect();
+  }, []);
+
+  // Responsive cap on cards per view based on the container (not window),
+  // so the layout adapts whether the carousel is full-width or in a column.
+  const effectivePerView = (() => {
+    if (containerWidth === 0) return desiredPerView;
+    if (containerWidth < 360) return 1;
+    if (containerWidth < 560) return Math.min(desiredPerView, 2);
+    if (containerWidth < 820) return Math.min(desiredPerView, 3);
+    return desiredPerView;
+  })();
+
+  const itemWidthPx =
+    containerWidth > 0
+      ? Math.max(
+          120,
+          (containerWidth - gapPx * (effectivePerView - 1)) / effectivePerView,
+        )
+      : 0;
+  const stepPx = itemWidthPx + gapPx;
+  const maxIndex = Math.max(0, itemCount - effectivePerView);
+  const clampedIndex = Math.min(currentIndex, maxIndex);
 
   const handlePrev = () =>
-    setCurrentIndex((i) => (i <= 0 ? 0 : i - 1));
-
+    setCurrentIndex((i) => (loopEnabled && i <= 0 ? maxIndex : Math.max(0, i - 1)));
   const handleNext = () =>
-    setCurrentIndex((i) => (i >= itemCount - 1 ? itemCount - 1 : i + 1));
+    setCurrentIndex((i) => (loopEnabled && i >= maxIndex ? 0 : Math.min(maxIndex, i + 1)));
+
+  // Autoplay: advance one step on an interval; loop wraps, otherwise stops at end.
+  useEffect(() => {
+    if (autoplay !== "on" || maxIndex === 0) return;
+    const interval = AUTOPLAY_INTERVAL_MS[autoplayInterval];
+    const id = setInterval(() => {
+      setCurrentIndex((i) =>
+        i >= maxIndex ? (loopEnabled ? 0 : maxIndex) : i + 1,
+      );
+    }, interval);
+    return () => clearInterval(id);
+  }, [autoplay, autoplayInterval, loopEnabled, maxIndex]);
 
   if (!itemCount) return null;
 
   return (
-    <section className="w-full overflow-hidden relative my-10 flex flex-col px-4">
+    <section className="w-full min-w-0 max-w-full overflow-hidden relative my-6 flex flex-col" style={{ marginLeft: "3%" }}>
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-extrabold text-gray-900">{heading ?? "🔥 Hot This Week"}</h2>
+      <div className="mb-6 flex items-center justify-between gap-4">
+        <div className="min-w-0">
+          <h2 className="text-2xl font-extrabold text-gray-900 truncate">{heading ?? "\uD83D\uDD25 Hot This Week"}</h2>
         </div>
 
-        {/* Nav buttons — same SVG style as _carousel-block.tsx */}
-        <section role="navigation" className="flex gap-4">
-          <button onClick={handlePrev} aria-label="Previous slide">
+        {/* Nav buttons */}
+        {arrowsEnabled && (
+        <section role="navigation" className="flex gap-4 shrink-0">
+          <button onClick={handlePrev} aria-label="Previous slide" disabled={!loopEnabled && clampedIndex === 0}>
             <svg
               width="48" height="49" viewBox="0 0 48 49" fill="none"
               xmlns="http://www.w3.org/2000/svg"
               style={{ transform: "rotate(180deg)" }}
-              className={currentIndex === 0 ? "text-mischka dark:text-ghost-white" : "text-vulcan dark:text-light-grey"}
+              className={clampedIndex === 0 ? "text-mischka dark:text-ghost-white" : "text-vulcan dark:text-light-grey"}
             >
               <g clipPath="url(#products-clip-prev)">
                 <path fillRule="evenodd" clipRule="evenodd"
@@ -144,11 +405,11 @@ export default function ProductCarousel({ products, heading }: ProductCarouselPr
             <span className="sr-only">Previous Slide</span>
           </button>
 
-          <button onClick={handleNext} aria-label="Next slide">
+          <button onClick={handleNext} aria-label="Next slide" disabled={!loopEnabled && clampedIndex >= maxIndex}>
             <svg
               width="48" height="49" viewBox="0 0 48 49" fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className={currentIndex >= itemCount - 1 ? "text-mischka dark:text-light-grey" : "text-vulcan dark:text-ghost-white"}
+              className={clampedIndex >= maxIndex ? "text-mischka dark:text-light-grey" : "text-vulcan dark:text-ghost-white"}
             >
               <g clipPath="url(#products-clip-next)">
                 <path fillRule="evenodd" clipRule="evenodd"
@@ -164,45 +425,60 @@ export default function ProductCarousel({ products, heading }: ProductCarouselPr
             <span className="sr-only">Next Slide</span>
           </button>
         </section>
+        )}
       </div>
 
-      {/* Animated track — same motion.div pattern as _carousel-block.tsx */}
-      <motion.div
-        className="flex px-4"
-        style={{
-          // @ts-ignore - inline CSS variable
-          ["--item-width"]: `${itemWidth}vw`,
-          width: `calc(${itemCount * itemWidth}vw + ${(itemCount - 1) * 16}px)`,
-          x: `calc(${currentIndex * -itemWidth}vw - ${currentIndex * 16}px)`,
-          transition: "0.5s",
-        }}
-      >
-        {products.map((product) => (
-          <div
-            key={product.id}
-            style={{
-              flex: `0 0 ${itemWidth}vw`,
-              width: `${itemWidth}vw`,
-              paddingLeft: "8px",
-              paddingRight: "8px",
-            }}
-          >
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </motion.div>
+      {/* Animated track — sized to its parent container, not the viewport */}
+      <div  ref={trackRef} className={` ${BACKGROUND_COLOR_CLASSES[bgColor]} relative w-full overflow-hidden`}>
+        <motion.div
+          className="flex"
+          style={{
+            gap: `${gapPx}px`,
+            x: -(stepPx * clampedIndex),
+            transition: "0.5s",
+          }}
+        >
+          {visibleProducts.map((product, idx) => (
+            <div
+              key={product.id}
+              style={{
+                flex: `0 0 ${itemWidthPx}px`,
+                width: `${itemWidthPx}px`,
+              }}
+            >
+
+              <ProductCard
+                product={product}
+                aspectRatio={aspectRatio}
+                orientation={orientation}
+                roundedCorners={roundedCorners}
+                cardStyle={cardStyle}
+                bgColor={bgColor}
+                textColor={textColor}
+                fadeIn={
+                  fadeEnabled
+                    ? { duration: fadeDuration, delay: fadeBaseDelay + idx * 0.05 }
+                    : false
+                }
+              />
+            </div>
+          ))}
+        </motion.div>
+      </div>
 
       {/* Indicator dots */}
+      {dotsEnabled && (
       <div className="mt-6 flex justify-center gap-2">
-        {products.map((_, i) => (
+        {Array.from({ length: maxIndex + 1 }).map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrentIndex(i)}
             aria-label={`Go to slide ${i + 1}`}
-            className={`h-2 w-2 rounded-full transition-colors ${i === currentIndex ? "bg-orange-500" : "bg-gray-300"}`}
+            className={`h-2 w-2 rounded-full transition-colors ${i === clampedIndex ? "bg-orange-500" : "bg-gray-300"}`}
           />
         ))}
       </div>
+      )}
     </section>
   );
 }

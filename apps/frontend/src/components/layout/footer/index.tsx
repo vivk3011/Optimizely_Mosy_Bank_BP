@@ -23,8 +23,8 @@ export async function SiteFooter({locale, ctx }: SiteFooterProps)
     const footerLocale = locale ?? contextLocale
     const footerData = (await getSdk(graphClient).getFooterData({
         locale: footerLocale ? localeToGraphLocale(footerLocale) as Locales : Locales.ALL
-    }).catch((e: { response: { code: string, status: number, system: { message: string, auth: string} }}) => {
-        console.error(`❌ [Optimizely Graph] [Error] ${e.response.code} ${e.response.system.message} ${e.response.system.auth}`)
+    }).catch((e: { response?: { code?: string, status?: number, system?: { message?: string, auth?: string} }}) => {
+        console.error(`❌ [Optimizely Graph] [Error] ${e?.response?.code} ${e?.response?.system?.message} ${e?.response?.system?.auth}`)
         return undefined
     }))?.appLayout?.items?.at(0)
 

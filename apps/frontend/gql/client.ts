@@ -16,7 +16,7 @@ export const ButtonBlockPropertyDataFragmentDoc = gql`
     ...LinkData
   }
   className: ButtonClass
-  buttonType: ButtonType
+  buttonType: buttonType
   buttonVariant: ButtonVariant
 }
     `;
@@ -30,7 +30,7 @@ export const ReferenceDataFragmentDoc = gql`
     `;
 export const PageSeoSettingsPropertyDataFragmentDoc = gql`
     fragment PageSeoSettingsPropertyData on PageSeoSettingsProperty {
-  MetaTitle
+  metaTitle
   MetaDescription
   MetaKeywords
   SharingImage {
@@ -110,7 +110,7 @@ export const ButtonBlockDataFragmentDoc = gql`
     ...LinkData
   }
   className: ButtonClass
-  buttonType: ButtonType
+  buttonType: buttonType
   buttonVariant: ButtonVariant
 }
     `;
@@ -151,16 +151,6 @@ export const VideoMediaComponentDataFragmentDoc = gql`
 export const ContentCarouselDataFragmentDoc = gql`
     fragment ContentCarouselData on ContentCarousel {
   heading
-  _metadata {
-    key
-    locale
-  }
-}
-    `;
-export const ContentCarouselElementDataFragmentDoc = gql`
-    fragment ContentCarouselElementData on ContentCarouselElement {
-  heading
-  Type
   _metadata {
     key
     locale
@@ -288,9 +278,58 @@ export const OdpEmbedBlockDataFragmentDoc = gql`
   ContentId
 }
     `;
+export const OptiFormsChoiceElementDataFragmentDoc = gql`
+    fragment OptiFormsChoiceElementData on OptiFormsChoiceElement {
+  Label
+  Tooltip
+  Options
+  AllowMultiSelect
+  Validators
+}
+    `;
+export const OptiFormsSelectionElementDataFragmentDoc = gql`
+    fragment OptiFormsSelectionElementData on OptiFormsSelectionElement {
+  Label
+  Placeholder
+  Tooltip
+  Options
+  AllowMultiSelect
+  AutoComplete
+  Validators
+}
+    `;
+export const OptiFormsTextareaElementDataFragmentDoc = gql`
+    fragment OptiFormsTextareaElementData on OptiFormsTextareaElement {
+  Label
+  Placeholder
+  PredefinedValue
+  Tooltip
+  AutoComplete
+  Validators
+}
+    `;
+export const OptiFormsTextboxElementDataFragmentDoc = gql`
+    fragment OptiFormsTextboxElementData on OptiFormsTextboxElement {
+  Label
+  Placeholder
+  PredefinedValue
+  Tooltip
+  AutoComplete
+  Validators
+}
+    `;
+export const OptiFormsUrlElementDataFragmentDoc = gql`
+    fragment OptiFormsUrlElementData on OptiFormsUrlElement {
+  Label
+  Placeholder
+  PredefinedValue
+  Tooltip
+  Validators
+}
+    `;
 export const PageSeoSettingsDataFragmentDoc = gql`
     fragment PageSeoSettingsData on PageSeoSettings {
-  MetaTitle
+  metaTitle
   MetaDescription
   MetaKeywords
   SharingImage {
@@ -325,6 +364,7 @@ export const RichTextElementDataFragmentDoc = gql`
     html
   }
   csstext
+  jstext
 }
     `;
 export const TestimonialElementDataFragmentDoc = gql`
@@ -362,6 +402,126 @@ export const VideoElementDataFragmentDoc = gql`
   }
 }
     `;
+export const shops_BenefitListItemDataFragmentDoc = gql`
+    fragment shops_BenefitListItemData on shops_BenefitListItem {
+  title
+  description {
+    json
+    html
+  }
+}
+    `;
+export const shops_BenefitListSectionDataFragmentDoc = gql`
+    fragment shops_BenefitListSectionData on shops_BenefitListSection {
+  heading
+  ctaLabel
+  ctaHref {
+    default
+    base
+  }
+  imageAlt
+  benefit1 {
+    key
+    item {
+      ... on shops_BenefitListItem {
+        ...shops_BenefitListItemData
+      }
+    }
+  }
+  benefit2 {
+    key
+    item {
+      ... on shops_BenefitListItem {
+        ...shops_BenefitListItemData
+      }
+    }
+  }
+  benefit3 {
+    key
+    item {
+      ... on shops_BenefitListItem {
+        ...shops_BenefitListItemData
+      }
+    }
+  }
+}
+    `;
+export const shops_CtaBannerDataFragmentDoc = gql`
+    fragment shops_CtaBannerData on shops_CtaBanner {
+  eyebrow
+  heading
+  buttonLabel
+  buttonHref {
+    default
+    base
+  }
+  backgroundTone
+}
+    `;
+export const shops_FeatureGridItemDataFragmentDoc = gql`
+    fragment shops_FeatureGridItemData on shops_FeatureGridItem {
+  title
+  description {
+    json
+    html
+  }
+  variant
+  imageAlt
+}
+    `;
+export const shops_FeatureGridDataFragmentDoc = gql`
+    fragment shops_FeatureGridData on shops_FeatureGrid {
+  sectionBackgroundTone
+  items {
+    key
+    item {
+      ... on shops_FeatureGridItem {
+        ...shops_FeatureGridItemData
+      }
+    }
+  }
+  items2 {
+    key
+    item {
+      ... on shops_FeatureGridItem {
+        ...shops_FeatureGridItemData
+      }
+    }
+  }
+  items3 {
+    key
+    item {
+      ... on shops_FeatureGridItem {
+        ...shops_FeatureGridItemData
+      }
+    }
+  }
+}
+    `;
+export const shops_HeadlineBandDataFragmentDoc = gql`
+    fragment shops_HeadlineBandData on shops_HeadlineBand {
+  prefixText
+  accentText
+  backgroundTone
+  accentTone
+}
+    `;
+export const shops_MediaSpotlightDataFragmentDoc = gql`
+    fragment shops_MediaSpotlightData on shops_MediaSpotlight {
+  heading
+  body {
+    json
+    html
+  }
+  ctaLabel
+  ctaHref {
+    default
+    base
+  }
+  mediaAlt
+  mediaAlignment
+}
+    `;
 export const BlankSectionDataFragmentDoc = gql`
     fragment BlankSectionData on BlankSection {
   _metadata {
@@ -383,7 +543,6 @@ export const ContinueReadingComponentDataFragmentDoc = gql`
     ...CTAElementData
     ...CarouselBlockData
     ...ContentCarouselData
-    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -393,6 +552,11 @@ export const ContinueReadingComponentDataFragmentDoc = gql`
     ...MegaMenuGroupBlockData
     ...MenuNavigationBlockData
     ...OdpEmbedBlockData
+    ...OptiFormsChoiceElementData
+    ...OptiFormsSelectionElementData
+    ...OptiFormsTextareaElementData
+    ...OptiFormsTextboxElementData
+    ...OptiFormsUrlElementData
     ...PageSeoSettingsData
     ...ParagraphElementData
     ...QuoteBlockData
@@ -400,6 +564,13 @@ export const ContinueReadingComponentDataFragmentDoc = gql`
     ...TestimonialElementData
     ...TextBlockData
     ...VideoElementData
+    ...shops_BenefitListItemData
+    ...shops_BenefitListSectionData
+    ...shops_CtaBannerData
+    ...shops_FeatureGridData
+    ...shops_FeatureGridItemData
+    ...shops_HeadlineBandData
+    ...shops_MediaSpotlightData
     ...BlankSectionData
   }
 }
@@ -417,7 +588,6 @@ export const CarouselBlockDataFragmentDoc = gql`
     ...CTAElementData
     ...CarouselBlockData
     ...ContentCarouselData
-    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -427,6 +597,11 @@ export const CarouselBlockDataFragmentDoc = gql`
     ...MegaMenuGroupBlockData
     ...MenuNavigationBlockData
     ...OdpEmbedBlockData
+    ...OptiFormsChoiceElementData
+    ...OptiFormsSelectionElementData
+    ...OptiFormsTextareaElementData
+    ...OptiFormsTextboxElementData
+    ...OptiFormsUrlElementData
     ...PageSeoSettingsData
     ...ParagraphElementData
     ...QuoteBlockData
@@ -434,6 +609,13 @@ export const CarouselBlockDataFragmentDoc = gql`
     ...TestimonialElementData
     ...TextBlockData
     ...VideoElementData
+    ...shops_BenefitListItemData
+    ...shops_BenefitListSectionData
+    ...shops_CtaBannerData
+    ...shops_FeatureGridData
+    ...shops_FeatureGridItemData
+    ...shops_HeadlineBandData
+    ...shops_MediaSpotlightData
     ...BlankSectionData
   }
 }
@@ -449,7 +631,6 @@ export const CompositionComponentNodeDataFragmentDoc = gql`
     ...CTAElementData
     ...CarouselBlockData
     ...ContentCarouselData
-    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -459,6 +640,11 @@ export const CompositionComponentNodeDataFragmentDoc = gql`
     ...MegaMenuGroupBlockData
     ...MenuNavigationBlockData
     ...OdpEmbedBlockData
+    ...OptiFormsChoiceElementData
+    ...OptiFormsSelectionElementData
+    ...OptiFormsTextareaElementData
+    ...OptiFormsTextboxElementData
+    ...OptiFormsUrlElementData
     ...PageSeoSettingsData
     ...ParagraphElementData
     ...QuoteBlockData
@@ -466,6 +652,13 @@ export const CompositionComponentNodeDataFragmentDoc = gql`
     ...TestimonialElementData
     ...TextBlockData
     ...VideoElementData
+    ...shops_BenefitListItemData
+    ...shops_BenefitListSectionData
+    ...shops_CtaBannerData
+    ...shops_FeatureGridData
+    ...shops_FeatureGridItemData
+    ...shops_HeadlineBandData
+    ...shops_MediaSpotlightData
     ...BlankSectionData
   }
 }
@@ -539,7 +732,6 @@ export const BlogPostPageDataFragmentDoc = gql`
     ...CTAElementData
     ...CarouselBlockData
     ...ContentCarouselData
-    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -549,6 +741,11 @@ export const BlogPostPageDataFragmentDoc = gql`
     ...MegaMenuGroupBlockData
     ...MenuNavigationBlockData
     ...OdpEmbedBlockData
+    ...OptiFormsChoiceElementData
+    ...OptiFormsSelectionElementData
+    ...OptiFormsTextareaElementData
+    ...OptiFormsTextboxElementData
+    ...OptiFormsUrlElementData
     ...PageSeoSettingsData
     ...ParagraphElementData
     ...QuoteBlockData
@@ -556,6 +753,13 @@ export const BlogPostPageDataFragmentDoc = gql`
     ...TestimonialElementData
     ...TextBlockData
     ...VideoElementData
+    ...shops_BenefitListItemData
+    ...shops_BenefitListSectionData
+    ...shops_CtaBannerData
+    ...shops_FeatureGridData
+    ...shops_FeatureGridItemData
+    ...shops_HeadlineBandData
+    ...shops_MediaSpotlightData
     ...BlankSectionData
   }
 }
@@ -568,7 +772,7 @@ export const BlogPostPageSearchResultFragmentDoc = gql`
   }
   author: ArticleAuthor
   seodata: SeoSettings {
-    MetaTitle
+    metaTitle
     MetaDescription
   }
   _metadata {
@@ -586,7 +790,6 @@ export const LandingPageDataFragmentDoc = gql`
     ...CTAElementData
     ...CarouselBlockData
     ...ContentCarouselData
-    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -596,6 +799,11 @@ export const LandingPageDataFragmentDoc = gql`
     ...MegaMenuGroupBlockData
     ...MenuNavigationBlockData
     ...OdpEmbedBlockData
+    ...OptiFormsChoiceElementData
+    ...OptiFormsSelectionElementData
+    ...OptiFormsTextareaElementData
+    ...OptiFormsTextboxElementData
+    ...OptiFormsUrlElementData
     ...PageSeoSettingsData
     ...ParagraphElementData
     ...QuoteBlockData
@@ -603,6 +811,13 @@ export const LandingPageDataFragmentDoc = gql`
     ...TestimonialElementData
     ...TextBlockData
     ...VideoElementData
+    ...shops_BenefitListItemData
+    ...shops_BenefitListSectionData
+    ...shops_CtaBannerData
+    ...shops_FeatureGridData
+    ...shops_FeatureGridItemData
+    ...shops_HeadlineBandData
+    ...shops_MediaSpotlightData
     ...BlankSectionData
   }
   MainContentArea {
@@ -613,7 +828,6 @@ export const LandingPageDataFragmentDoc = gql`
     ...CTAElementData
     ...CarouselBlockData
     ...ContentCarouselData
-    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -623,6 +837,11 @@ export const LandingPageDataFragmentDoc = gql`
     ...MegaMenuGroupBlockData
     ...MenuNavigationBlockData
     ...OdpEmbedBlockData
+    ...OptiFormsChoiceElementData
+    ...OptiFormsSelectionElementData
+    ...OptiFormsTextareaElementData
+    ...OptiFormsTextboxElementData
+    ...OptiFormsUrlElementData
     ...PageSeoSettingsData
     ...ParagraphElementData
     ...QuoteBlockData
@@ -630,6 +849,13 @@ export const LandingPageDataFragmentDoc = gql`
     ...TestimonialElementData
     ...TextBlockData
     ...VideoElementData
+    ...shops_BenefitListItemData
+    ...shops_BenefitListSectionData
+    ...shops_CtaBannerData
+    ...shops_FeatureGridData
+    ...shops_FeatureGridItemData
+    ...shops_HeadlineBandData
+    ...shops_MediaSpotlightData
     ...BlankSectionData
   }
 }
@@ -645,7 +871,6 @@ export const StaticPageDataFragmentDoc = gql`
     ...CTAElementData
     ...CarouselBlockData
     ...ContentCarouselData
-    ...ContentCarouselElementData
     ...ContentRecsElementData
     ...ContinueReadingComponentData
     ...HeadingElementData
@@ -655,6 +880,11 @@ export const StaticPageDataFragmentDoc = gql`
     ...MegaMenuGroupBlockData
     ...MenuNavigationBlockData
     ...OdpEmbedBlockData
+    ...OptiFormsChoiceElementData
+    ...OptiFormsSelectionElementData
+    ...OptiFormsTextareaElementData
+    ...OptiFormsTextboxElementData
+    ...OptiFormsUrlElementData
     ...PageSeoSettingsData
     ...ParagraphElementData
     ...QuoteBlockData
@@ -662,6 +892,13 @@ export const StaticPageDataFragmentDoc = gql`
     ...TestimonialElementData
     ...TextBlockData
     ...VideoElementData
+    ...shops_BenefitListItemData
+    ...shops_BenefitListSectionData
+    ...shops_CtaBannerData
+    ...shops_FeatureGridData
+    ...shops_FeatureGridItemData
+    ...shops_HeadlineBandData
+    ...shops_MediaSpotlightData
     ...BlankSectionData
   }
 }
@@ -749,7 +986,6 @@ ${IContentListItemFragmentDoc}
 ${ImageMediaComponentDataFragmentDoc}
 ${VideoMediaComponentDataFragmentDoc}
 ${ContentCarouselDataFragmentDoc}
-${ContentCarouselElementDataFragmentDoc}
 ${ContentRecsElementDataFragmentDoc}
 ${HeadingElementDataFragmentDoc}
 ${HeroBlockDataFragmentDoc}
@@ -761,6 +997,11 @@ ${MegaMenuGroupBlockDataFragmentDoc}
 ${MenuNavigationBlockDataFragmentDoc}
 ${BlogPostPageMenuBlockFragmentDoc}
 ${OdpEmbedBlockDataFragmentDoc}
+${OptiFormsChoiceElementDataFragmentDoc}
+${OptiFormsSelectionElementDataFragmentDoc}
+${OptiFormsTextareaElementDataFragmentDoc}
+${OptiFormsTextboxElementDataFragmentDoc}
+${OptiFormsUrlElementDataFragmentDoc}
 ${PageSeoSettingsDataFragmentDoc}
 ${ParagraphElementDataFragmentDoc}
 ${QuoteBlockDataFragmentDoc}
@@ -768,6 +1009,13 @@ ${RichTextElementDataFragmentDoc}
 ${TestimonialElementDataFragmentDoc}
 ${TextBlockDataFragmentDoc}
 ${VideoElementDataFragmentDoc}
+${shops_BenefitListItemDataFragmentDoc}
+${shops_BenefitListSectionDataFragmentDoc}
+${shops_CtaBannerDataFragmentDoc}
+${shops_FeatureGridDataFragmentDoc}
+${shops_FeatureGridItemDataFragmentDoc}
+${shops_HeadlineBandDataFragmentDoc}
+${shops_MediaSpotlightDataFragmentDoc}
 ${BlankSectionDataFragmentDoc}`;
 export const getBlankExperienceMetaDataDocument = gql`
     query getBlankExperienceMetaData($key: String!, $locale: [Locales]) {
@@ -780,7 +1028,7 @@ export const getBlankExperienceMetaDataDocument = gql`
         displayName
       }
       seo: BlankExperienceSeoSettings {
-        title: MetaTitle
+        title: metaTitle
         description: MetaDescription
         image: SharingImage {
           ...ReferenceData
@@ -897,7 +1145,7 @@ export const getBlogPostPageMetaDataDocument = gql`
       }
       topics: Topic
       seo: SeoSettings {
-        title: MetaTitle
+        title: metaTitle
         description: MetaDescription
         keywords: MetaKeywords
         image: SharingImage {
@@ -927,7 +1175,7 @@ export const getLandingPageMetaDataDocument = gql`
         }
       }
       SeoSettings {
-        MetaTitle
+        metaTitle
         MetaDescription
         SharingImage {
           ...ReferenceData
@@ -957,7 +1205,7 @@ export const getStaticPageMetaDataDocument = gql`
       }
       PageTitle
       SeoSetting {
-        MetaTitle
+        metaTitle
         MetaDescription
         SharingImage {
           ...ReferenceData
@@ -1188,7 +1436,6 @@ export const getContentByIdDocument = gql`
       ...CTAElementData
       ...CarouselBlockData
       ...ContentCarouselData
-      ...ContentCarouselElementData
       ...ContentRecsElementData
       ...ContinueReadingComponentData
       ...HeadingElementData
@@ -1198,6 +1445,11 @@ export const getContentByIdDocument = gql`
       ...MegaMenuGroupBlockData
       ...MenuNavigationBlockData
       ...OdpEmbedBlockData
+      ...OptiFormsChoiceElementData
+      ...OptiFormsSelectionElementData
+      ...OptiFormsTextareaElementData
+      ...OptiFormsTextboxElementData
+      ...OptiFormsUrlElementData
       ...PageSeoSettingsData
       ...ParagraphElementData
       ...QuoteBlockData
@@ -1205,6 +1457,13 @@ export const getContentByIdDocument = gql`
       ...TestimonialElementData
       ...TextBlockData
       ...VideoElementData
+      ...shops_BenefitListItemData
+      ...shops_BenefitListSectionData
+      ...shops_CtaBannerData
+      ...shops_FeatureGridData
+      ...shops_FeatureGridItemData
+      ...shops_HeadlineBandData
+      ...shops_MediaSpotlightData
       ...BlankSectionData
       ...BlankExperienceData
       ...BlogSectionExperienceData
@@ -1228,7 +1487,6 @@ ${IContentListItemFragmentDoc}
 ${ImageMediaComponentDataFragmentDoc}
 ${VideoMediaComponentDataFragmentDoc}
 ${ContentCarouselDataFragmentDoc}
-${ContentCarouselElementDataFragmentDoc}
 ${ContentRecsElementDataFragmentDoc}
 ${ContinueReadingComponentDataFragmentDoc}
 ${HeadingElementDataFragmentDoc}
@@ -1241,6 +1499,11 @@ ${MegaMenuGroupBlockDataFragmentDoc}
 ${MenuNavigationBlockDataFragmentDoc}
 ${BlogPostPageMenuBlockFragmentDoc}
 ${OdpEmbedBlockDataFragmentDoc}
+${OptiFormsChoiceElementDataFragmentDoc}
+${OptiFormsSelectionElementDataFragmentDoc}
+${OptiFormsTextareaElementDataFragmentDoc}
+${OptiFormsTextboxElementDataFragmentDoc}
+${OptiFormsUrlElementDataFragmentDoc}
 ${PageSeoSettingsDataFragmentDoc}
 ${ParagraphElementDataFragmentDoc}
 ${QuoteBlockDataFragmentDoc}
@@ -1248,6 +1511,13 @@ ${RichTextElementDataFragmentDoc}
 ${TestimonialElementDataFragmentDoc}
 ${TextBlockDataFragmentDoc}
 ${VideoElementDataFragmentDoc}
+${shops_BenefitListItemDataFragmentDoc}
+${shops_BenefitListSectionDataFragmentDoc}
+${shops_CtaBannerDataFragmentDoc}
+${shops_FeatureGridDataFragmentDoc}
+${shops_FeatureGridItemDataFragmentDoc}
+${shops_HeadlineBandDataFragmentDoc}
+${shops_MediaSpotlightDataFragmentDoc}
 ${BlankSectionDataFragmentDoc}
 ${BlankExperienceDataFragmentDoc}
 ${PageSeoSettingsPropertyDataFragmentDoc}
@@ -1300,7 +1570,6 @@ ${IContentListItemFragmentDoc}
 ${ImageMediaComponentDataFragmentDoc}
 ${VideoMediaComponentDataFragmentDoc}
 ${ContentCarouselDataFragmentDoc}
-${ContentCarouselElementDataFragmentDoc}
 ${ContentRecsElementDataFragmentDoc}
 ${ContinueReadingComponentDataFragmentDoc}
 ${HeadingElementDataFragmentDoc}
@@ -1312,6 +1581,11 @@ ${MegaMenuGroupBlockDataFragmentDoc}
 ${MenuNavigationBlockDataFragmentDoc}
 ${BlogPostPageMenuBlockFragmentDoc}
 ${OdpEmbedBlockDataFragmentDoc}
+${OptiFormsChoiceElementDataFragmentDoc}
+${OptiFormsSelectionElementDataFragmentDoc}
+${OptiFormsTextareaElementDataFragmentDoc}
+${OptiFormsTextboxElementDataFragmentDoc}
+${OptiFormsUrlElementDataFragmentDoc}
 ${PageSeoSettingsDataFragmentDoc}
 ${ParagraphElementDataFragmentDoc}
 ${QuoteBlockDataFragmentDoc}
@@ -1319,6 +1593,13 @@ ${RichTextElementDataFragmentDoc}
 ${TestimonialElementDataFragmentDoc}
 ${TextBlockDataFragmentDoc}
 ${VideoElementDataFragmentDoc}
+${shops_BenefitListItemDataFragmentDoc}
+${shops_BenefitListSectionDataFragmentDoc}
+${shops_CtaBannerDataFragmentDoc}
+${shops_FeatureGridDataFragmentDoc}
+${shops_FeatureGridItemDataFragmentDoc}
+${shops_HeadlineBandDataFragmentDoc}
+${shops_MediaSpotlightDataFragmentDoc}
 ${BlankSectionDataFragmentDoc}
 ${BlogSectionExperienceDataFragmentDoc}
 ${BlogPostPageDataFragmentDoc}

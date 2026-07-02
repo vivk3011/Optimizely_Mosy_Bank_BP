@@ -84,8 +84,8 @@ const defaultSites: SiteConfig[] = [
     hosts: [getEnv("NEXT_PUBLIC_SITE_HOST_A") || "site-a.localtest.me"],
     locales: parseList(getEnv("NEXT_PUBLIC_SITE_LOCALES_A") || getEnv("NEXT_PUBLIC_SITE_LOCALES"), ["en", "sv"]),
     defaultLocale: getEnv("NEXT_PUBLIC_DEFAULT_LOCALE_A") || getEnv("NEXT_PUBLIC_DEFAULT_LOCALE") || "en",
-    prefixDefaultLocale: false,
-    resolverBaseUrl: getEnv("OPTIMIZELY_RESOLVER_URL_SITE_A") || "http://site-a.localtest.me:3001",
+    prefixDefaultLocale: true,
+    resolverBaseUrl: getEnv("OPTIMIZELY_RESOLVER_URL_SITE_A"),
     startPagePath: pathFromUrlOrPath(
       getEnv("OPTIMIZELY_START_PAGE_PATH_SITE_A")
       || getEnv("OPTIMIZELY_START_PAGE_URL_SITE_A")
@@ -101,7 +101,7 @@ const defaultSites: SiteConfig[] = [
     locales: parseList(getEnv("NEXT_PUBLIC_SITE_LOCALES_B") || getEnv("NEXT_PUBLIC_SITE_LOCALES"), ["en", "sv"]),
     defaultLocale: getEnv("NEXT_PUBLIC_DEFAULT_LOCALE_B") || getEnv("NEXT_PUBLIC_DEFAULT_LOCALE") || "en",
     prefixDefaultLocale: false,
-    resolverBaseUrl: getEnv("OPTIMIZELY_RESOLVER_URL_SITE_B") || "http://site-b.localtest.me:3001",
+    resolverBaseUrl: getEnv("OPTIMIZELY_RESOLVER_URL_SITE_B"),
     startPagePath: pathFromUrlOrPath(
       getEnv("OPTIMIZELY_START_PAGE_PATH_SITE_B")
       || getEnv("OPTIMIZELY_START_PAGE_URL_SITE_B")
@@ -117,7 +117,7 @@ const defaultSites: SiteConfig[] = [
     locales: parseList(getEnv("NEXT_PUBLIC_SITE_LOCALES_C") || getEnv("NEXT_PUBLIC_SITE_LOCALES"), ["en", "sv", "pl"]),
     defaultLocale: getEnv("NEXT_PUBLIC_DEFAULT_LOCALE_C") || getEnv("NEXT_PUBLIC_DEFAULT_LOCALE") || "en",
     prefixDefaultLocale: false,
-    resolverBaseUrl: getEnv("OPTIMIZELY_RESOLVER_URL_SITE_C") || "http://site-c.localtest.me:3001",
+    resolverBaseUrl: getEnv("OPTIMIZELY_RESOLVER_URL_SITE_C"),
     startPagePath: pathFromUrlOrPath(
       getEnv("OPTIMIZELY_START_PAGE_PATH_SITE_C")
       || getEnv("OPTIMIZELY_START_PAGE_URL_SITE_C")

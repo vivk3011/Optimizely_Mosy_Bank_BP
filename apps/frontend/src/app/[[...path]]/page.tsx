@@ -1,6 +1,8 @@
 import "server-only";
 
+import { draftMode } from "next/headers";
 import { createClient } from "@remkoj/optimizely-cms-nextjs";
+import { AuthMode } from "@remkoj/optimizely-graph-client";
 
 import { createPage } from "@remkoj/optimizely-cms-nextjs/page";
 import { factory } from "@components/factory";
@@ -12,7 +14,17 @@ const { generateMetadata, generateStaticParams, CmsPage: Page } = createPage(fac
   paramsToLocale: () => "en",
   getContentByPath,
 
-  client: () => createClient(),
+  client: () => {
+    const client = createClient();
+    let isDraft = false;
+    try { isDraft = draftMode().isEnabled; } catch { /* no request scope (e.g. generateStaticParams) */ }
+    if (isDraft) {
+      // HMAC + preview changeset returns unpublished / draft content.
+      client.updateAuthentication(AuthMode.HMAC);
+      client.enablePreview();
+    }
+    return client;
+  },
 });
 
 // force-dynamic: locale and siteId come from request headers set by middleware

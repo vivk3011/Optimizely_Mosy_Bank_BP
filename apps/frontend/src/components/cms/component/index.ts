@@ -3,6 +3,11 @@
 import { type ComponentTypeDictionary } from "@remkoj/optimizely-cms-react";
 import VideoElementComponent from "./VideoElement";
 import TextBlockComponent from "./TextBlock";
+import OptiFormsTextboxElementComponent from "./OptiFormsTextboxElement";
+import OptiFormsTextareaElementComponent from "./OptiFormsTextareaElement";
+import OptiFormsUrlElementComponent from "./OptiFormsUrlElement";
+import OptiFormsChoiceElementComponent from "./OptiFormsChoiceElement";
+import OptiFormsSelectionElementComponent from "./OptiFormsSelectionElement";
 import TestimonialElementComponent from "./TestimonialElement";
 import RichTextElementComponent from "./RichTextElement";
 import QuoteBlockComponent from "./QuoteBlock";
@@ -24,8 +29,14 @@ import CTAElementComponent from "./CTAElement";
 import ButtonBlockComponent from "./ButtonBlock";
 import ArticleListElementComponent from "./ArticleListElement";
 import ArticleListElementLoader from "./ArticleListElement/loading";
-import ContentCarouselElementComponent from "./ContentCarouselElement";
 import ContentCarouselComponent from "./ContentCarousel";
+import ShopsHeadlineBandComponent from "./shops_HeadlineBand";
+import ShopsMediaSpotlightComponent from "./shops_MediaSpotlight";
+import ShopsFeatureGridComponent from "./shops_FeatureGrid";
+import ShopsFeatureGridItemComponent from "./shops_FeatureGridItem";
+import ShopsBenefitListSectionComponent from "./shops_BenefitListSection";
+import ShopsBenefitListItemComponent from "./shops_BenefitListItem";
+import ShopsCtaBannerComponent from "./shops_CtaBanner";
 import ComponentPageFactory from "./Page";
 
 // Prefix entries - if needed
@@ -40,6 +51,26 @@ export const ComponentFactory : ComponentTypeDictionary = [
     { 
         type: "TextBlock", 
         component: TextBlockComponent 
+    },
+    {
+        type: "OptiFormsTextboxElement",
+        component: OptiFormsTextboxElementComponent
+    },
+    {
+        type: "OptiFormsTextareaElement",
+        component: OptiFormsTextareaElementComponent
+    },
+    {
+        type: "OptiFormsUrlElement",
+        component: OptiFormsUrlElementComponent
+    },
+    {
+        type: "OptiFormsChoiceElement",
+        component: OptiFormsChoiceElementComponent
+    },
+    {
+        type: "OptiFormsSelectionElement",
+        component: OptiFormsSelectionElementComponent
     },
     { 
         type: "TestimonialElement", 
@@ -140,12 +171,36 @@ export const ComponentFactory : ComponentTypeDictionary = [
         loader: ArticleListElementLoader
     },
     {
-        type: "ContentCarouselElement",
-        component: ContentCarouselElementComponent
-    },
-    {
         type: "ContentCarousel",
         component: ContentCarouselComponent
+    },
+    {
+        type: "shops_HeadlineBand",
+        component: ShopsHeadlineBandComponent
+    },
+    {
+        type: "shops_MediaSpotlight",
+        component: ShopsMediaSpotlightComponent
+    },
+    {
+        type: "shops_FeatureGrid",
+        component: ShopsFeatureGridComponent
+    },
+    {
+        type: "shops_FeatureGridItem",
+        component: ShopsFeatureGridItemComponent
+    },
+    {
+        type: "shops_BenefitListSection",
+        component: ShopsBenefitListSectionComponent
+    },
+    {
+        type: "shops_BenefitListItem",
+        component: ShopsBenefitListItemComponent
+    },
+    {
+        type: "shops_CtaBanner",
+        component: ShopsCtaBannerComponent
     },
     ...ComponentPageFactory
 ];

@@ -1,5 +1,5 @@
 fragment PageSeoSettingsPropertyData on PageSeoSettingsProperty {
-  MetaTitle
+  metaTitle
   MetaDescription
   MetaKeywords
   SharingImage { ...ReferenceData }

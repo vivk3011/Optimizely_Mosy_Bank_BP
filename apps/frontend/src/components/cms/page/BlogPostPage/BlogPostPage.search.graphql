@@ -5,7 +5,7 @@ fragment BlogPostPageSearchResult on BlogPostPage {
     }
     author: ArticleAuthor
     seodata: SeoSettings {
-        MetaTitle
+        metaTitle
         MetaDescription
     }
     _metadata {
