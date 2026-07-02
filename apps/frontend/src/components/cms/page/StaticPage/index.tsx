@@ -55,14 +55,14 @@ StaticPage.getMetaData = async (contentLink, locale, client) => {
   const page = pages[0];
   const meta: WithPropertySet<Metadata, "openGraph"> = {
     title:
-      page.SeoSetting?.MetaTitle ??
+      page.SeoSetting?.metaTitle ??
       page.PageTitle ??
       page._metadata?.displayName,
     description: page.SeoSetting?.MetaDescription,
     metadataBase: tryToUrl(page._metadata?.url?.base),
     openGraph: {
       title:
-        page.SeoSetting?.MetaTitle ??
+        page.SeoSetting?.metaTitle ??
         page.PageTitle ??
         page._metadata?.displayName ??
         undefined,
