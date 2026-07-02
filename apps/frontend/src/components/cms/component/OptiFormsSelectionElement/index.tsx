@@ -62,6 +62,7 @@ export const OptiFormsSelectionElement: CmsComponent<
   const required = isRequired(Validators);
   const options = normalizeOptions(Options);
   const fieldId = `opti-forms-selection-${contentLink.key}`;
+  const allowMultiSelect = Boolean(AllowMultiSelect);
   const defaultSelected = options.filter((o) => o.checked).map((o) => o.value);
   const singleDefault = defaultSelected[0] ?? "";
 
@@ -84,15 +85,15 @@ export const OptiFormsSelectionElement: CmsComponent<
       )}
       <select
         id={fieldId}
-        name={AllowMultiSelect ? `${Label || fieldId}[]` : (Label || fieldId)}
-        multiple={AllowMultiSelect}
+        name={allowMultiSelect ? `${Label || fieldId}[]` : (Label || fieldId)}
+        multiple={allowMultiSelect}
         required={required}
         autoComplete={AutoComplete || undefined}
         title={Tooltip || undefined}
-        defaultValue={AllowMultiSelect ? defaultSelected : singleDefault}
+        defaultValue={allowMultiSelect ? defaultSelected : singleDefault}
         className="border rounded-md px-3 py-2 text-base dark:bg-transparent"
       >
-        {!AllowMultiSelect && Placeholder && (
+        {!allowMultiSelect && Placeholder && (
           <option value="" disabled>
             {Placeholder}
           </option>
