@@ -1,6 +1,6 @@
 import "server-only";
 import { type CmsComponent } from "@remkoj/optimizely-cms-react";
-import { type ContentCarouselElementDataFragment, ContentCarouselElementDataFragmentDoc } from "@/gql/graphql";
+import { type ContentCarouselDataFragment, ContentCarouselDataFragmentDoc } from "@/gql/graphql";
 import ProductCarousel from "@/components/shared/product_placeholder/ProductCarousel";
 import productsData from "@/data/hot-this-week.json";
 
@@ -10,7 +10,7 @@ import productsData from "@/data/hot-this-week.json";
  * The CMS `heading` field overrides the default section heading when provided.
  * The CMS `Type` field (array) can be used for future variant control.
  */
-export const ContentCarouselElementElement: CmsComponent<ContentCarouselElementDataFragment> = ({ data }) => {
+export const ContentCarouselElementElement: CmsComponent<ContentCarouselDataFragment> = ({ data }) => {
   const heading = data?.heading ?? undefined;
   return (
     <ProductCarousel
@@ -21,6 +21,6 @@ export const ContentCarouselElementElement: CmsComponent<ContentCarouselElementD
 };
 
 ContentCarouselElementElement.displayName = "Content Carousel Element (Element/ContentCarouselElement)";
-ContentCarouselElementElement.getDataFragment = () => ["ContentCarouselElementData", ContentCarouselElementDataFragmentDoc];
+ContentCarouselElementElement.getDataFragment = () => ["ContentCarouselData", ContentCarouselDataFragmentDoc];
 
 export default ContentCarouselElementElement;
