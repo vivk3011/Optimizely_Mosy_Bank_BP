@@ -51,12 +51,12 @@ BlogSectionExperienceExperience.getMetaData = async (contentLink, locale, client
     const canonicalUrl = new URL(metaData?._metadata?.url?.default ?? '/', metaData?._metadata?.url?.base ?? 'http://localhost:3000')
 
     return {
-        title: seoData?.MetaTitle ?? pageName,
+        title: seoData?.metaTitle ?? pageName,
         description: seoData?.MetaDescription,
         keywords: seoData?.MetaKeywords?.filter(Utils.isNonEmptyString),
         metadataBase: tryToUrl(metaData?._metadata?.url?.base),
         openGraph: {
-            title: seoData?.MetaTitle ?? pageName,
+            title: seoData?.metaTitle ?? pageName,
             description: seoData?.MetaDescription ?? undefined,
             publishedTime: published,
             type: graphType == "-" ? 'website' : graphType,
