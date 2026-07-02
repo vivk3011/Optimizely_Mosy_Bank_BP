@@ -1,0 +1,6 @@
+fragment shops_HeadlineBandData on shops_HeadlineBand {
+  prefixText
+  accentText
+  backgroundTone
+  accentTone
+}

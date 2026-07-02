@@ -1,0 +1,10 @@
+fragment shops_CtaBannerData on shops_CtaBanner {
+  eyebrow
+  heading
+  buttonLabel
+  buttonHref {
+    default
+    base
+  }
+  backgroundTone
+}

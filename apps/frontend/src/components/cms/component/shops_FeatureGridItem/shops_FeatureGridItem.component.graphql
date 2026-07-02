@@ -1,0 +1,9 @@
+fragment shops_FeatureGridItemData on shops_FeatureGridItem {
+  title
+  description {
+    json
+    html
+  }
+  variant
+  imageAlt
+}

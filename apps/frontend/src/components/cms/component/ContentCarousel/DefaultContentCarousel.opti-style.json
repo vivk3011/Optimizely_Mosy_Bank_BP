@@ -1,0 +1,197 @@
+{
+  "key": "DefaultContentCarousel",
+  "displayName": "Default",
+  "contentType": "ContentCarousel",
+  "isDefault": true,
+  "settings": {
+    "aspectRatio": {
+      "displayName": "Card image aspect ratio",
+      "editor": "selectOne",
+      "sortOrder": 80,
+      "choices": {
+        "widescreen": { "displayName": "Widescreen (16:9)", "sortOrder": 50 },
+        "photo": { "displayName": "Photo (3:2)", "sortOrder": 40 },
+        "monitor": { "displayName": "Classic Monitor (4:3)", "sortOrder": 30 },
+        "portrait": { "displayName": "Portrait (3:4)", "sortOrder": 20 },
+        "square": { "displayName": "Square (1:1)", "sortOrder": 10 }
+      }
+    },
+    "orientation": {
+      "displayName": "Card image orientation",
+      "editor": "selectOne",
+      "sortOrder": 70,
+      "choices": {
+        "portrait": { "displayName": "Portrait", "sortOrder": 20 },
+        "landscape": { "displayName": "Landscape", "sortOrder": 10 }
+      }
+    },
+    "roundedCorners": {
+      "displayName": "Card rounded corners",
+      "editor": "selectOne",
+      "sortOrder": 60,
+      "choices": {
+        "full": { "displayName": "Full", "sortOrder": 60 },
+        "huge": { "displayName": "Huge", "sortOrder": 50 },
+        "large": { "displayName": "Large", "sortOrder": 40 },
+        "medium": { "displayName": "Medium", "sortOrder": 30 },
+        "small": { "displayName": "Small", "sortOrder": 20 },
+        "none": { "displayName": "None", "sortOrder": 10 }
+      }
+    },
+    "cardStyle": {
+      "displayName": "Card style",
+      "editor": "selectOne",
+      "sortOrder": 50,
+      "choices": {
+        "featured": { "displayName": "Featured", "sortOrder": 40 },
+        "minimal": { "displayName": "Minimal", "sortOrder": 30 },
+        "compact": { "displayName": "Compact", "sortOrder": 20 },
+        "default": { "displayName": "Default", "sortOrder": 10 }
+      }
+    },
+    "itemsPerView": {
+      "displayName": "Cards per page (desktop)",
+      "editor": "selectOne",
+      "sortOrder": 40,
+      "choices": {
+        "five": { "displayName": "5", "sortOrder": 50 },
+        "four": { "displayName": "4", "sortOrder": 40 },
+        "three": { "displayName": "3", "sortOrder": 30 },
+        "two": { "displayName": "2", "sortOrder": 20 },
+        "one": { "displayName": "1", "sortOrder": 10 }
+      }
+    },
+    "maxItems": {
+      "displayName": "Maximum items shown",
+      "editor": "selectOne",
+      "sortOrder": 30,
+      "choices": {
+        "all": { "displayName": "All", "sortOrder": 60 },
+        "twenty": { "displayName": "20", "sortOrder": 50 },
+        "sixteen": { "displayName": "16", "sortOrder": 40 },
+        "twelve": { "displayName": "12", "sortOrder": 30 },
+        "eight": { "displayName": "8", "sortOrder": 20 },
+        "four": { "displayName": "4", "sortOrder": 10 }
+      }
+    },
+    "appear": {
+      "displayName": "Fade in: Animation",
+      "editor": "selectOne",
+      "sortOrder": 20,
+      "choices": {
+        "fade": { "displayName": "Fade", "sortOrder": 20 },
+        "none": { "displayName": "None", "sortOrder": 10 }
+      }
+    },
+    "duration": {
+      "displayName": "Fade in: Duration",
+      "editor": "selectOne",
+      "sortOrder": 15,
+      "choices": {
+        "verylong": { "displayName": "Very Long (2s)", "sortOrder": 50 },
+        "long": { "displayName": "Long (1.5s)", "sortOrder": 40 },
+        "medium": { "displayName": "Medium (1s)", "sortOrder": 30 },
+        "short": { "displayName": "Short (0.5s)", "sortOrder": 20 },
+        "none": { "displayName": "None", "sortOrder": 10 }
+      }
+    },
+    "delay": {
+      "displayName": "Fade in: Delay",
+      "editor": "selectOne",
+      "sortOrder": 10,
+      "choices": {
+        "verylong": { "displayName": "Very Long (2s)", "sortOrder": 50 },
+        "long": { "displayName": "Long (1.5s)", "sortOrder": 40 },
+        "medium": { "displayName": "Medium (1s)", "sortOrder": 30 },
+        "short": { "displayName": "Short (0.5s)", "sortOrder": 20 },
+        "none": { "displayName": "None", "sortOrder": 10 }
+      }
+    },
+    "bgcolor": {
+      "displayName": "Background Color",
+      "editor": "selectOne",
+      "sortOrder": 10,
+      "choices": {
+        "grey": { "displayName": "Grey", "sortOrder": 50 },
+        "white": { "displayName": "White", "sortOrder": 40 },
+        "black": { "displayName": "Black", "sortOrder": 30 },
+        "blue": { "displayName": "Blue", "sortOrder": 20 },
+        "transparent": { "displayName": "None", "sortOrder": 10 },
+        "brandBlue": { "displayName": "Brand Blue", "sortOrder": 60 },
+        "brandYellow": { "displayName": "Brand Yellow", "sortOrder": 70 }
+      }
+    },
+    "textColor": {
+      "displayName": "Text Color",
+      "editor": "selectOne",
+      "sortOrder": 5,
+      "choices": {
+        "auto": { "displayName": "Auto (based on background)", "sortOrder": 50 },
+        "dark": { "displayName": "Dark", "sortOrder": 40 },
+        "light": { "displayName": "Light", "sortOrder": 30 },
+        "muted": { "displayName": "Muted", "sortOrder": 20 },
+        "accent": { "displayName": "Accent", "sortOrder": 10 },
+        "brandBlue": { "displayName": "Brand Blue", "sortOrder": 60 },
+        "brandYellow": { "displayName": "Brand Yellow", "sortOrder": 70 }
+      }
+    },
+    "showArrows": {
+      "displayName": "Carousel: Show arrows",
+      "editor": "selectOne",
+      "sortOrder": 200,
+      "choices": {
+        "yes": { "displayName": "Yes", "sortOrder": 20 },
+        "no": { "displayName": "No", "sortOrder": 10 }
+      }
+    },
+    "showDots": {
+      "displayName": "Carousel: Show indicator dots",
+      "editor": "selectOne",
+      "sortOrder": 190,
+      "choices": {
+        "yes": { "displayName": "Yes", "sortOrder": 20 },
+        "no": { "displayName": "No", "sortOrder": 10 }
+      }
+    },
+    "autoplay": {
+      "displayName": "Carousel: Autoplay",
+      "editor": "selectOne",
+      "sortOrder": 180,
+      "choices": {
+        "on": { "displayName": "On", "sortOrder": 20 },
+        "off": { "displayName": "Off", "sortOrder": 10 }
+      }
+    },
+    "autoplayInterval": {
+      "displayName": "Carousel: Autoplay interval",
+      "editor": "selectOne",
+      "sortOrder": 170,
+      "choices": {
+        "slow": { "displayName": "Slow (7s)", "sortOrder": 40 },
+        "medium": { "displayName": "Medium (5s)", "sortOrder": 30 },
+        "fast": { "displayName": "Fast (3s)", "sortOrder": 20 },
+        "veryfast": { "displayName": "Very Fast (1.5s)", "sortOrder": 10 }
+      }
+    },
+    "loop": {
+      "displayName": "Carousel: Loop",
+      "editor": "selectOne",
+      "sortOrder": 160,
+      "choices": {
+        "on": { "displayName": "On", "sortOrder": 20 },
+        "off": { "displayName": "Off", "sortOrder": 10 }
+      }
+    },
+    "slideGap": {
+      "displayName": "Carousel: Gap between cards",
+      "editor": "selectOne",
+      "sortOrder": 150,
+      "choices": {
+        "large": { "displayName": "Large (32px)", "sortOrder": 40 },
+        "medium": { "displayName": "Medium (16px)", "sortOrder": 30 },
+        "small": { "displayName": "Small (8px)", "sortOrder": 20 },
+        "none": { "displayName": "None", "sortOrder": 10 }
+      }
+    }
+  }
+}

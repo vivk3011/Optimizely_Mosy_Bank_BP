@@ -30,6 +30,13 @@ import ButtonBlockComponent from "./ButtonBlock";
 import ArticleListElementComponent from "./ArticleListElement";
 import ArticleListElementLoader from "./ArticleListElement/loading";
 import ContentCarouselComponent from "./ContentCarousel";
+import ShopsHeadlineBandComponent from "./shops_HeadlineBand";
+import ShopsMediaSpotlightComponent from "./shops_MediaSpotlight";
+import ShopsFeatureGridComponent from "./shops_FeatureGrid";
+import ShopsFeatureGridItemComponent from "./shops_FeatureGridItem";
+import ShopsBenefitListSectionComponent from "./shops_BenefitListSection";
+import ShopsBenefitListItemComponent from "./shops_BenefitListItem";
+import ShopsCtaBannerComponent from "./shops_CtaBanner";
 import ComponentPageFactory from "./Page";
 
 // Prefix entries - if needed
@@ -166,6 +173,34 @@ export const ComponentFactory : ComponentTypeDictionary = [
     {
         type: "ContentCarousel",
         component: ContentCarouselComponent
+    },
+    {
+        type: "shops_HeadlineBand",
+        component: ShopsHeadlineBandComponent
+    },
+    {
+        type: "shops_MediaSpotlight",
+        component: ShopsMediaSpotlightComponent
+    },
+    {
+        type: "shops_FeatureGrid",
+        component: ShopsFeatureGridComponent
+    },
+    {
+        type: "shops_FeatureGridItem",
+        component: ShopsFeatureGridItemComponent
+    },
+    {
+        type: "shops_BenefitListSection",
+        component: ShopsBenefitListSectionComponent
+    },
+    {
+        type: "shops_BenefitListItem",
+        component: ShopsBenefitListItemComponent
+    },
+    {
+        type: "shops_CtaBanner",
+        component: ShopsCtaBannerComponent
     },
     ...ComponentPageFactory
 ];

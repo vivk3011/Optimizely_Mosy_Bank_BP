@@ -1,0 +1,27 @@
+fragment shops_FeatureGridData on shops_FeatureGrid {
+  sectionBackgroundTone
+  items {
+    key
+    item {
+      ... on shops_FeatureGridItem {
+        ...shops_FeatureGridItemData
+      }
+    }
+  }
+  items2 {
+    key
+    item {
+      ... on shops_FeatureGridItem {
+        ...shops_FeatureGridItemData
+      }
+    }
+  }
+  items3 {
+    key
+    item {
+      ... on shops_FeatureGridItem {
+        ...shops_FeatureGridItemData
+      }
+    }
+  }
+}

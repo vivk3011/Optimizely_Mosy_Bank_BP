@@ -1,0 +1,14 @@
+fragment shops_MediaSpotlightData on shops_MediaSpotlight {
+  heading
+  body {
+    json
+    html
+  }
+  ctaLabel
+  ctaHref {
+    default
+    base
+  }
+  mediaAlt
+  mediaAlignment
+}

@@ -1,0 +1,7 @@
+fragment shops_BenefitListItemData on shops_BenefitListItem {
+  title
+  description {
+    json
+    html
+  }
+}

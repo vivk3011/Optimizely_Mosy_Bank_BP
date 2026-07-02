@@ -1,0 +1,33 @@
+fragment shops_BenefitListSectionData on shops_BenefitListSection {
+  heading
+  ctaLabel
+  ctaHref {
+    default
+    base
+  }
+  imageAlt
+  benefit1 {
+    key
+    item {
+      ... on shops_BenefitListItem {
+        ...shops_BenefitListItemData
+      }
+    }
+  }
+  benefit2 {
+    key
+    item {
+      ... on shops_BenefitListItem {
+        ...shops_BenefitListItemData
+      }
+    }
+  }
+  benefit3 {
+    key
+    item {
+      ... on shops_BenefitListItem {
+        ...shops_BenefitListItemData
+      }
+    }
+  }
+}
